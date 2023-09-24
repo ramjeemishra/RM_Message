@@ -1,3 +1,7 @@
+body {
+  background: black;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -18,8 +22,8 @@ main {
   border-radius: 10px;
 }
 main header {
-  background-color: rgb(179, 99, 38);
-  color: white;
+  background-color: cyan;
+  color: black;
   padding: 7px 20px;
   display: flex;
   flex-direction: row;
@@ -50,6 +54,7 @@ main header img {
 main div.container {
   background-color: #7e878c;
   padding: 20px;
+  border: 3px solid cyan;
   display: flex;
   flex-direction: row;
   align-items: stretch;
