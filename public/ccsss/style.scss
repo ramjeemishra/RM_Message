@@ -23,7 +23,7 @@ $fsize: 26px;
 
 
 
-body{
+body {
   background: black;
 }
 
@@ -57,12 +57,35 @@ main {
 
     div.title {
       @include flexing(row, flex-start, center);
-
+      img{
+        border: 1px solid black;
+      }
+      .tick{
+        width: 30px;
+        height: 30px;
+        margin-left: 3px;
+        border: none;
+      }
       h1 {
         font-family: $font-heading;
         font-size: $fsize;
         margin-left: 10px;
+        
       }
+    }
+
+    .Clear {
+      background: rgb(0, 0, 0);
+      padding-top: 6px;
+      padding-bottom: 6px;
+      font-weight: 600;
+      color: cyan;
+      padding-right: 6px;
+      padding-left: 6px;
+      border-radius: 5px;
+      border: none;
+      margin-left: 110px;
+      display: block;
     }
 
     button {
@@ -95,19 +118,34 @@ main {
       font-weight: 200;
       margin-right: 30px;
 
+
       .users-head {
         @include flexing(row, space-between, center);
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
         margin-bottom: 20px;
+        background: lightgrey;
+        border-radius: 5px;
+        color: black;
+        width: 200px;
+        padding-left: 10px;
+        padding-right: 10px;
+        padding-top: 4px;
+        padding-bottom: 4px;
 
         h4 {
-          background-color: $light-gray;
+          background-color: black;
           padding: 0 8px;
           border-radius: 50px;
+          color: white;
         }
 
         h3 {
           margin-right: 10%;
         }
+        
       }
 
       .users-list p {
@@ -198,6 +236,12 @@ main {
     width: 95%;
 
     header {
+      .Clear{
+        margin-left: 20px;
+      }
+      .lod{
+        margin-right: -15px;
+      }
       button {
         display: block;
       }

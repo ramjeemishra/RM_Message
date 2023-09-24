@@ -36,10 +36,32 @@ main header div.title {
   align-items: center;
   justify-content: flex-start;
 }
+main header div.title img {
+  border: 1px solid black;
+}
+main header div.title .tick {
+  width: 30px;
+  height: 30px;
+  margin-left: 3px;
+  border: none;
+}
 main header div.title h1 {
   font-family: "Baloo 2", cursive;
   font-size: 26px;
   margin-left: 10px;
+}
+main header .Clear {
+  background: rgb(0, 0, 0);
+  padding-top: 6px;
+  padding-bottom: 6px;
+  font-weight: 600;
+  color: cyan;
+  padding-right: 6px;
+  padding-left: 6px;
+  border-radius: 5px;
+  border: none;
+  margin-left: 110px;
+  display: block;
 }
 main header button {
   background-color: transparent;
@@ -74,12 +96,25 @@ main div.container div.users-window .users-head {
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
   margin-bottom: 20px;
+  background: lightgrey;
+  border-radius: 5px;
+  color: black;
+  width: 200px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 4px;
+  padding-bottom: 4px;
 }
 main div.container div.users-window .users-head h4 {
-  background-color: #7e878c;
+  background-color: black;
   padding: 0 8px;
   border-radius: 50px;
+  color: white;
 }
 main div.container div.users-window .users-head h3 {
   margin-right: 10%;
@@ -162,6 +197,12 @@ main div.container .chat-window .user-input button {
 @media (max-width: 900px) {
   main {
     width: 95%;
+  }
+  main header .Clear {
+    margin-left: 20px;
+  }
+  main header .lod {
+    margin-right: -15px;
   }
   main header button {
     display: block;
