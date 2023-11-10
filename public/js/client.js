@@ -7,6 +7,15 @@ var users_count = document.querySelector(".users-count");
 var msg_send = document.querySelector("#user-send");
 var user_msg = document.querySelector("#user-msg");
 
+
+
+user_msg.addEventListener('keydown', function(event) {
+    if (event.key === 'Enter') {
+        event.preventDefault(); // Prevents the default Enter key behavior (e.g., new line in a textarea)
+        msg_send.click(); // Trigger the click event on the send button
+    }
+});
+
 // Load stored messages from Local Storage
 function loadStoredMessages() {
     const storedMessages = JSON.parse(localStorage.getItem('chatMessages')) || [];
@@ -67,6 +76,10 @@ msg_send.addEventListener('click', () => {
         const storedMessages = JSON.parse(localStorage.getItem('chatMessages')) || [];
         storedMessages.push(data);
         localStorage.setItem('chatMessages', JSON.stringify(storedMessages));
+
+
+
+        
     }
 });
 
