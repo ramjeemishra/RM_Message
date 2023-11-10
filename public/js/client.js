@@ -74,7 +74,7 @@ function appendMessage(data, status) {
     let div = document.createElement('div');
     div.classList.add('message', status);
     let content = `
-    <h5>${data.user}</h5>
+    <h5 style="color: black; font-size: 1.5rem;" >${data.user}</h5>&nbsp&nbsp;<br>
     <p>${data.msg}</p>
     `;
     div.innerHTML = content;
