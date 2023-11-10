@@ -73,6 +73,9 @@ main header button {
 main header img {
   border-radius: 50%;
 }
+main header i {
+  font-size: large;
+}
 main div.container {
   background-color: #7e878c;
   padding: 20px;

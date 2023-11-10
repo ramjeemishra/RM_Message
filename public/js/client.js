@@ -94,3 +94,14 @@ clearChatBtn.addEventListener('click', () => {
     // Clear chat messages from Local Storage locally
     localStorage.removeItem('chatMessages');
 });
+
+
+
+
+
+
+
+
+
+
+
