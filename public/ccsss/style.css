@@ -137,7 +137,7 @@ main div.container .chat-window {
   background-color: rgba(255, 255, 255, 0.57);
 }
 main div.container .chat-window .chats {
-  height: 77vh;
+  height: 72dvh;
   padding: 20px;
   overflow-y: auto;
 }
