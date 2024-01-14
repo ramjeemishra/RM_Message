@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>RM chat</title>
-  <link rel="shortcut icon" href="public/img/Screenshot_2023-08-30_181849-removebg-preview.png" type="image/x-icon">
+  <link rel="shortcut icon" href="public/img/chatlogoo.png" style="width: max-content; height: max-content;" type="image/x-icon">
   <link rel="stylesheet" href="ccsss/style.css">
   <script src="https://kit.fontawesome.com/7221c7cc44.js" crossorigin="anonymous"></script>
 </head>
@@ -12,13 +12,14 @@
 
 
 
-  <main>
+  <main id="content">
 
     <header>
       <div class="title">
         <img src="img/chatlog.jpg" width="35px" alt="">
         <h1>RM chat </h1><img class="tick" src="img/verify.png" alt="tick">
       </div>
+      <button id="fullscreenButton" >Fullscreen</button>
       <button type="button" id="clearChatBtn" class="Clear">Clear chat</button>
       <button type="button" onclick="show_hide()">
         <i class="fa-solid fa-users fa-fade" font-size="large" style="color: #000000;"></i>
@@ -65,6 +66,24 @@
       uwindow.style.display="block";
     }
   }
+
+
+
+  const fullscreenButton = document.getElementById('fullscreenButton');
+const content = document.getElementById('content');
+
+fullscreenButton.addEventListener('click', toggleFullscreen);
+
+function toggleFullscreen() {
+    if (!document.fullscreenElement) {
+        content.requestFullscreen().catch(err => {
+            console.error(`Error attempting to enable fullscreen: ${err.message}`);
+        });
+    } else {
+        document.exitFullscreen();
+    }
+}
+
 </script>
 
 <script src="/socket.io/socket.io.js"></script>
