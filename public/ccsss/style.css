@@ -72,7 +72,6 @@ main header .Clear {
   padding-left: 6px;
   border-radius: 5px;
   border: none;
-  margin-left: 110px;
   display: block;
 }
 main header button {
@@ -216,9 +215,6 @@ main div.container .chat-window .user-input button {
 @media (max-width: 900px) {
   main {
     width: 95%;
-  }
-  main header .Clear {
-    margin-left: 20px;
   }
   main header .lod {
     margin-right: -15px;

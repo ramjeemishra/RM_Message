@@ -1,33 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TS chat</title>
-  <link rel="shortcut icon" href="public/img/chatlogoo.png" style="width: max-content; height: max-content;" type="image/x-icon">
+  <link rel="shortcut icon" href="public/img/chatlogoo.png" style="width: max-content; height: max-content;"
+    type="image/x-icon">
   <link rel="stylesheet" href="ccsss/style.css">
   <script src="https://kit.fontawesome.com/7221c7cc44.js" crossorigin="anonymous"></script>
   <style>
-    .buttons{
+    .buttons {
+      margin-bottom: -250px;
+      position: fixed;
+      z-index: 4;
       width: max-content;
       display: flex;
+      padding-top: 15px;
+      padding-bottom: 15px;
+      padding-right: 15px;
+      padding-left: 15px;
+      flex-wrap: wrap;
+      gap: 10px;
+      border: 1px solid black;
+      border-radius: 15px 0px 15px 0px;
+      background-color: #ffffff65;
+      animation: shadow-pulse 2s infinite alternate;
     }
-    details{
-      width: max-content;
-      display: flex;
+
+    @keyframes shadow-pulse {
+      0% {
+        box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.1);
+      }
+
+      100% {
+        box-shadow: 0px 0px 20px 10px rgba(255, 255, 255, 0.693);
+      }
     }
-    @media (min-width:800px) {
-        details{
-            display: none;
-        }
+
+    .buttons button {
+      padding: 8px 16px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      display: block;
+      margin-bottom: 15px;
     }
-    @media (max-width:800px) {
-        .buttons{
-            display: none;
-        }
+
+    /* CSS for the main button */
+    .main button {
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      display: block;
     }
   </style>
 </head>
+
 <body>
 
 
@@ -39,17 +73,14 @@
         <img src="img/chatlog.jpg" width="35px" alt="">
         <h1>TS</h1><img class="tick" src="img/verify.png" alt="tick">
       </div>
-      <div class="buttons">
-      <button id="fullscreenButton">Fullscreen</button>
-      <div class="Clear"  style="cursor: pointer; background-color: rgb(0, 0, 0); color: lavender;" onmouseover="this.style.backgroundColor='lightgray'"  onmouseout="this.style.backgroundColor='black'" onclick="navigator.clipboard.writeText('https://rm-message.onrender.com/')">copy invite link</div>
-      <button type="button" id="clearChatBtn" class="Clear">Clear chat</button>
-      </div>
-      <details>
-        <summary style="margin-bottom: 15px;">More</summary>
-        <button id="fullscreenButton" style="margin-left: 20px; margin-bottom: 15px;">Fullscreen</button>
-        <div class="Clear"  style="cursor: pointer; background-color: rgb(0, 0, 0); color: lavender; margin-bottom: 15px;" onmouseover="this.style.backgroundColor='lightgray'"  onmouseout="this.style.backgroundColor='black'" onclick="navigator.clipboard.writeText('https://rm-message.onrender.com/')">copy invite link</div>
+      <div class="main"><button onclick="show_hide1()">More</button></div>
+      <div class="buttons" style="display: none;">
+        <button id="fullscreenButton">Fullscreen</button>
         <button type="button" id="clearChatBtn" class="Clear">Clear chat</button>
-      </details>
+        <button class="Clear" style="cursor: pointer; background-color: rgb(0, 0, 0); color: lavender;"
+          onmouseover="this.style.backgroundColor='lightgray'" onmouseout="this.style.backgroundColor='black'"
+          onclick="navigator.clipboard.writeText('https://rm-message.onrender.com/')">copy invite link</button>
+      </div>
       <button type="button" onclick="show_hide()">
         <i class="fa-solid fa-users fa-fade" font-size="large" style="color: #000000;"></i>
       </button>
@@ -62,14 +93,14 @@
           <h3>Users__online</h3>
           <h4 class="users-count">1</h4>
         </div>
-          <div class="users-list">
-          </div>
-        
+        <div class="users-list">
+        </div>
+
       </div>
 
       <div class="chat-window">
         <div class="chats">
-
+          <p style="border: 1px solid black; color: white; padding: 5px 5px 5px 5px; border-radius: 9px; text-align: center;">Your chats can be seen by all the user</p>
 
         </div>
         <div class="user-input">
@@ -84,40 +115,50 @@
 
   </main>
 
-<script>
-  let uwindow=document.querySelector('.users-window');
-  function show_hide(){
-    if(uwindow.style.display=="block"){
-      uwindow.style.display="none";
+  <script>
+    let uwindow = document.querySelector('.users-window');
+    function show_hide() {
+      if (uwindow.style.display == "block") {
+        uwindow.style.display = "none";
+      }
+      else {
+        uwindow.style.display = "block";
+      }
     }
-    else{
-      uwindow.style.display="block";
+
+    let unindow = document.querySelector('.buttons');
+    function show_hide1() {
+      if (unindow.style.display == "block") {
+        unindow.style.display = "none";
+      }
+      else {
+        unindow.style.display = "block";
+      }
     }
-  }
 
 
+    const fullscreenButton = document.getElementById('fullscreenButton');
+    const content = document.getElementById('content');
 
-  const fullscreenButton = document.getElementById('fullscreenButton');
-const content = document.getElementById('content');
+    fullscreenButton.addEventListener('click', toggleFullscreen);
 
-fullscreenButton.addEventListener('click', toggleFullscreen);
-
-function toggleFullscreen() {
-    if (!document.fullscreenElement) {
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
         content.requestFullscreen().catch(err => {
-            console.error(`Error attempting to enable fullscreen: ${err.message}`);
+          console.error(`Error attempting to enable fullscreen: ${err.message}`);
         });
-    } else {
+      } else {
         document.exitFullscreen();
+      }
     }
-}
-</script>
+  </script>
 
-<script src="/socket.io/socket.io.js"></script>
-<script src="/js/client.js"></script>
-<!-- <script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/js/client.js"></script>
+  <!-- <script>
   const socket = io("https://localhost");
 </script> -->
 
 </body>
+
 </html>
