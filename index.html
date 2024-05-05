@@ -3,10 +3,30 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RM chat</title>
+  <title>TS chat</title>
   <link rel="shortcut icon" href="public/img/chatlogoo.png" style="width: max-content; height: max-content;" type="image/x-icon">
   <link rel="stylesheet" href="ccsss/style.css">
   <script src="https://kit.fontawesome.com/7221c7cc44.js" crossorigin="anonymous"></script>
+  <style>
+    .buttons{
+      width: max-content;
+      display: flex;
+    }
+    details{
+      width: max-content;
+      display: flex;
+    }
+    @media (min-width:800px) {
+        details{
+            display: none;
+        }
+    }
+    @media (max-width:800px) {
+        .buttons{
+            display: none;
+        }
+    }
+  </style>
 </head>
 <body>
 
@@ -17,13 +37,21 @@
     <header>
       <div class="title">
         <img src="img/chatlog.jpg" width="35px" alt="">
-        <h1>RM chat </h1><img class="tick" src="img/verify.png" alt="tick">
+        <h1>TS</h1><img class="tick" src="img/verify.png" alt="tick">
       </div>
-      <button id="fullscreenButton" >Fullscreen</button>
+      <div class="buttons">
+      <button id="fullscreenButton">Fullscreen</button>
+      <div class="Clear"  style="cursor: pointer; background-color: rgb(0, 0, 0); color: lavender;" onmouseover="this.style.backgroundColor='lightgray'"  onmouseout="this.style.backgroundColor='black'" onclick="navigator.clipboard.writeText('https://rm-message.onrender.com/')">copy invite link</div>
       <button type="button" id="clearChatBtn" class="Clear">Clear chat</button>
+      </div>
+      <details>
+        <summary style="margin-bottom: 15px;">More</summary>
+        <button id="fullscreenButton" style="margin-left: 20px; margin-bottom: 15px;">Fullscreen</button>
+        <div class="Clear"  style="cursor: pointer; background-color: rgb(0, 0, 0); color: lavender; margin-bottom: 15px;" onmouseover="this.style.backgroundColor='lightgray'"  onmouseout="this.style.backgroundColor='black'" onclick="navigator.clipboard.writeText('https://rm-message.onrender.com/')">copy invite link</div>
+        <button type="button" id="clearChatBtn" class="Clear">Clear chat</button>
+      </details>
       <button type="button" onclick="show_hide()">
         <i class="fa-solid fa-users fa-fade" font-size="large" style="color: #000000;"></i>
-        <!-- <img src="img/chatmenu.jpg" width="50px" class="lod" alt=""> -->
       </button>
     </header>
 
@@ -83,7 +111,6 @@ function toggleFullscreen() {
         document.exitFullscreen();
     }
 }
-
 </script>
 
 <script src="/socket.io/socket.io.js"></script>
