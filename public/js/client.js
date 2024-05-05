@@ -87,8 +87,8 @@ function appendMessage(data, status) {
     let div = document.createElement('div');
     div.classList.add('message', status);
     let content = `
-    <h5 style="color: black; font-size: 1.5rem;" >${data.user}</h5>&nbsp&nbsp;<br>
     <p>${data.msg}</p>
+    <h1 style="color: black; font-size: 9px; margin-bottom:-17px;" >${data.user}</h1>&nbsp&nbsp;<br>
     `;
     div.innerHTML = content;
     chats.appendChild(div);
