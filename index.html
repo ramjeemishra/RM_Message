@@ -24,7 +24,7 @@
       gap: 10px;
       border: 1px solid black;
       border-radius: 15px 0px 15px 0px;
-      background-color: #ffffff65;
+      background-color: #ffffff98;
       animation: shadow-pulse 2s infinite alternate;
     }
 
@@ -40,12 +40,13 @@
 
     .buttons button {
       padding: 8px 16px;
-      background-color: #007bff;
+      background-color: #13171c;
       color: white;
       border: none;
-      border-radius: 5px;
+      border-radius: 15px;
       cursor: pointer;
       display: block;
+      font-weight: 700;
       margin-bottom: 15px;
     }
 
@@ -58,6 +59,42 @@
       border-radius: 5px;
       cursor: pointer;
       display: block;
+    }
+
+    @media (min-width: 1198px) {
+      .tsinput {
+        width: 64vw;
+      }
+    }
+
+    @media (max-width: 1197px) {
+      .tsinput {
+        width: 54vw;
+      }
+    }
+
+    @media (max-width: 997px) {
+      .tsinput {
+        width: 54vw;
+      }
+    }
+
+    @media (max-width: 897px) {
+      .tsinput {
+        width: 76vw;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .tsinput {
+        width: 65vw;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .tsinput {
+        width: 216px;
+      }
     }
   </style>
 </head>
@@ -75,8 +112,11 @@
       </div>
       <div class="main"><button onclick="show_hide1()">More</button></div>
       <div class="buttons" style="display: none;">
-        <button id="fullscreenButton">Fullscreen</button>
+        <!-- <button>Chat with ai</button> -->
+        <button id="button2" style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">TS AI</button>
+        <button id="button1">CHAT box</button>
         <button type="button" id="clearChatBtn" class="Clear">Clear chat</button>
+        <button id="fullscreenButton">Fullscreen</button>
         <button class="Clear" style="cursor: pointer; background-color: rgb(0, 0, 0); color: lavender;"
           onmouseover="this.style.backgroundColor='lightgray'" onmouseout="this.style.backgroundColor='black'"
           onclick="navigator.clipboard.writeText('https://rm-message.onrender.com/')">copy invite link</button>
@@ -98,9 +138,11 @@
 
       </div>
 
-      <div class="chat-window">
+      <div id="tab1" class="chat-window">
         <div class="chats">
-          <p style="border: 1px solid black; color: white; padding: 5px 5px 5px 5px; border-radius: 9px; text-align: center;">Your chats can be seen by all the user</p>
+          <p
+            style="border: 1px solid black; color: white; padding: 5px 5px 5px 5px; border-radius: 9px; text-align: center;">
+            Your chats can be seen by all the user</p>
 
         </div>
         <div class="user-input">
@@ -110,10 +152,45 @@
       </div>
 
 
+      <!-- <div id="tab2" class="chat-window" style="display: none;">
+        <div class="chat-container" id="chats">
+          <p
+            style="border: 1px solid black; color: white; padding: 5px 5px 5px 5px; border-radius: 9px; text-align: center;">
+            You are chatting with our ai</p>
 
-    </div>
+        </div>
+        <div class="user-input">
+          <input id="user-msg" type="text" placeholder="Type your message">
+          <button type="button" id="user-send" onclick="sendMessage()">Send</button>
+        </div>
+      </div> -->
+
+
+
+
+      <div id="tab2" class="chat-window" style="display: none;">
+        <div class="chat-container" id="chats">
+          <p
+            style="border: 1px solid black; color: white; padding: 5px 5px 5px 5px; border-radius: 9px; text-align: center;">
+            You are chatting with our ai</p>
+          <div id="chat-box"
+            style="flex: 1; padding: 20px; height: 534px; overflow-y: scroll; border-bottom: 1px solid #ddd; display: flex; flex-direction: column; gap: 10px;">
+          </div>
+          <div
+            style="display: flex; padding: 10px; position: fixed; background-color: #f8f9fa00; border-top: 1px solid #ddd;"
+            class="input_area">
+            <input class="tsinput" id="user-input" type="text" placeholder="Type your message here..."
+              style="flex: 1; padding: 10px; border: 1px solid #ccc; border-radius: 20px; margin-right: 10px; font-size: 16px; outline: none;" />
+            <button id="send-buttonn" onclick="sendMessage()"
+              style="padding: 10px 20px; border: none; background-color: #007bff; color: #fff; border-radius: 20px; cursor: pointer; font-size: 16px; transition: background-color 0.3s ease;">Send</button>
+          </div>
+        </div>
+
+
+      </div>
 
   </main>
+
 
   <script>
     let uwindow = document.querySelector('.users-window');
@@ -151,6 +228,136 @@
         document.exitFullscreen();
       }
     }
+
+
+    document.getElementById("button1").addEventListener("click", function () {
+      showTab("tab1");
+    });
+
+    document.getElementById("button2").addEventListener("click", function () {
+      showTab("tab2");
+    });
+
+    function showTab(tabId) {
+      // Hide all tabs
+      var tabs = document.getElementsByClassName("chat-window");
+      for (var i = 0; i < tabs.length; i++) {
+        tabs[i].style.display = "none";
+      }
+      // Show the selected tab
+      document.getElementById(tabId).style.display = "block";
+    }
+
+
+
+
+
+
+
+    // ai code here 👇👇👇
+    
+    document.addEventListener("DOMContentLoaded", () => {
+    loadChatHistory();
+    document.getElementById('user-input').addEventListener('keypress', function(event) {
+        if (event.key === 'Enter') {
+            event.preventDefault(); // Prevent the default action to avoid submitting a form if it's inside one
+            document.getElementById('send-buttonn').click(); // Simulate a click on the send button
+        }
+    });
+});
+
+const API_KEY = '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';
+const API_URL = 'https://api.groq.com/openai/v1/chat/completions';
+const systemMessage = {
+    role: 'system',
+    content: 'Your name is Nexus. If anyone asks who built you or who your owner is, tell them it is Ramjee. Otherwise, do not mention my name. Try to give responses in one to two lines, unless the user asks for more information.'
+};
+
+async function sendMessage() {
+    const userInput = document.getElementById('user-input').value;
+    if (!userInput) return;
+
+    addMessageToChat('User', userInput);
+
+    try {
+        const response = await fetch(API_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${API_KEY}`
+            },
+            body: JSON.stringify({
+                messages: [systemMessage, { role: 'user', content: userInput }],
+                model: 'llama3-8b-8192'
+            })
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        const botMessage = data.choices[0].message.content;
+        addMessageToChat('Bot', botMessage);
+        speakMessage(botMessage); // Speak the AI response
+    } catch (error) {
+        console.error('Error fetching response:', error);
+        addMessageToChat('Bot', `Error: Unable to fetch response (${error.message})`);
+    }
+
+    document.getElementById('user-input').value = '';
+}
+
+function addMessageToChat(sender, message, skipSave = false) {
+    const chatBox = document.getElementById('chat-box');
+    const messageDiv = document.createElement('div');
+    messageDiv.textContent = `${sender}: ${message}`;
+    messageDiv.classList.add('message', sender.toLowerCase());
+    chatBox.appendChild(messageDiv);
+    chatBox.scrollTop = chatBox.scrollHeight;
+    if (!skipSave) {
+        saveChatHistory();
+    }
+}
+
+function saveChatHistory() {
+    const chatBox = document.getElementById('chat-box');
+    const messages = chatBox.querySelectorAll('.message');
+    const chatHistory = [];
+    messages.forEach(message => {
+        chatHistory.push({
+            sender: message.classList.contains('user') ? 'User' : 'Bot',
+            content: message.textContent.replace(/^User: /, '').replace(/^Bot: /, '')
+        });
+    });
+    localStorage.setItem('chatHistory', JSON.stringify(chatHistory));
+}
+
+function loadChatHistory() {
+    const chatHistory = JSON.parse(localStorage.getItem('chatHistory')) || [];
+    chatHistory.forEach(({ sender, content }) => {
+        addMessageToChat(sender, content, true); // Skip saving when loading
+    });
+}
+
+function speakMessage(message) {
+    const utterance = new SpeechSynthesisUtterance(message);
+    const voices = speechSynthesis.getVoices();
+    const femaleVoice = voices.find(voice => voice.name === 'Google UK English Female') || voices.find(voice => voice.name.includes('Female'));
+    if (femaleVoice) {
+        utterance.voice = femaleVoice;
+    }
+    speechSynthesis.speak(utterance);
+}
+
+// Ensure voices are loaded before trying to find a female voice
+if (speechSynthesis.onvoiceschanged !== undefined) {
+    speechSynthesis.onvoiceschanged = () => {
+        // Preload voices
+        speechSynthesis.getVoices();
+    };
+}
+
   </script>
 
   <script src="/socket.io/socket.io.js"></script>
