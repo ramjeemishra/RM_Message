@@ -82,11 +82,34 @@
       .tsinput {
         width: 64vw;
       }
+
+      .clearbtn i {
+        position: fixed;
+        margin-left: 70%;
+        font-size: 2rem;
+        margin-top: -114px;
+      }
     }
 
     @media (max-width: 1197px) {
       .tsinput {
         width: 54vw;
+      }
+
+      .clearbtn i {
+        position: fixed;
+        margin-left: 67%;
+        font-size: 2rem;
+        margin-top: -114px;
+      }
+    }
+
+    @media (max-width: 1080px) {
+      .clearbtn i {
+        position: fixed;
+        margin-left: 64%;
+        font-size: 2rem;
+        margin-top: -114px;
       }
     }
 
@@ -94,11 +117,25 @@
       .tsinput {
         width: 54vw;
       }
+
+      .clearbtn i {
+        position: fixed;
+        margin-left: 60%;
+        font-size: 2rem;
+        margin-top: -114px;
+      }
     }
 
     @media (max-width: 897px) {
       .tsinput {
         width: 76vw;
+      }
+
+      .clearbtn i {
+        position: fixed;
+        margin-left: 79%;
+        font-size: 2rem;
+        margin-top: -133px;
       }
     }
 
@@ -108,77 +145,97 @@
       }
     }
 
+    @media (max-width: 590px) {
+      .clearbtn i {
+        margin-left: 69%;
+      }
+    }
+
     @media (max-width: 480px) {
       .tsinput {
         width: 216px;
       }
     }
 
+    .clearbtn i {
+      background: -webkit-linear-gradient(#8c2d2d, #01ff00);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      transition: transform 0.5s ease, background-color 0.3s ease;
+    }
+
+    .clearbtn i:hover {
+      transform: rotate(360deg);
+      background: -webkit-linear-gradient(#00ccff, #00ff00aa);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      cursor: pointer;
+    }
 
     /* button code */
 
     .button-57 {
-  position: relative;
-  overflow: hidden;
-  border: 1px solid #18181a;
-  color: #18181a;
-  display: inline-block;
-  font-size: 15px;
-  line-height: 15px;
-  padding: 18px 18px 17px;
-  text-decoration: none;
-  cursor: pointer;
-  background: #fff;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-}
+      position: relative;
+      overflow: hidden;
+      border: 1px solid #18181a;
+      color: #18181a;
+      display: inline-block;
+      font-size: 15px;
+      line-height: 15px;
+      padding: 18px 18px 17px;
+      text-decoration: none;
+      cursor: pointer;
+      background: #fff;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: manipulation;
+    }
 
-.button-57 span:first-child {
-  position: relative;
-  transition: color 600ms cubic-bezier(0.48, 0, 0.12, 1);
-  z-index: 10;
-}
+    .button-57 span:first-child {
+      position: relative;
+      transition: color 600ms cubic-bezier(0.48, 0, 0.12, 1);
+      z-index: 10;
+    }
 
-.button-57 span:last-child {
-  color: white;
-  display: block;
-  position: absolute;
-  bottom: 0;
-  transition: all 500ms cubic-bezier(0.48, 0, 0.12, 1);
-  z-index: 100;
-  opacity: 0;
-  top: 50%;
-  left: 50%;
-  transform: translateY(225%) translateX(-50%);
-  height: 14px;
-  line-height: 13px;
-}
+    .button-57 span:last-child {
+      color: white;
+      display: block;
+      position: absolute;
+      bottom: 0;
+      transition: all 500ms cubic-bezier(0.48, 0, 0.12, 1);
+      z-index: 100;
+      opacity: 0;
+      top: 50%;
+      left: 50%;
+      transform: translateY(225%) translateX(-50%);
+      height: 14px;
+      line-height: 13px;
+    }
 
-.button-57:after {
-  content: "";
-  position: absolute;
-  bottom: -50%;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: black;
-  transform-origin: bottom center;
-  transition: transform 600ms cubic-bezier(0.48, 0, 0.12, 1);
-  transform: skewY(9.3deg) scaleY(0);
-  z-index: 50;
-}
+    .button-57:after {
+      content: "";
+      position: absolute;
+      bottom: -50%;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: black;
+      transform-origin: bottom center;
+      transition: transform 600ms cubic-bezier(0.48, 0, 0.12, 1);
+      transform: skewY(9.3deg) scaleY(0);
+      z-index: 50;
+    }
 
-.button-57:hover:after {
-  transform-origin: bottom center;
-  transform: skewY(9.3deg) scaleY(2);
-}
+    .button-57:hover:after {
+      transform-origin: bottom center;
+      transform: skewY(9.3deg) scaleY(2);
+    }
 
-.button-57:hover span:last-child {
-  transform: translateX(-50%) translateY(-100%);
-  opacity: 1;
-  transition: all 900ms cubic-bezier(0.48, 0, 0.12, 1);
-}
+    .button-57:hover span:last-child {
+      transform: translateX(-50%) translateY(-100%);
+      opacity: 1;
+      transition: all 900ms cubic-bezier(0.48, 0, 0.12, 1);
+    }
   </style>
 </head>
 
@@ -193,7 +250,8 @@
         <img src="img/chatlog.jpg" width="35px" alt="">
         <h1>TS</h1><img class="tick" src="img/verify.png" alt="tick">
       </div>
-      <div class="main"><button class="button-57" onclick="show_hide1()"><span class="text">MORE</span><span>HIDE</span></button></div>
+      <div class="main"><button class="button-57" onclick="show_hide1()"><span
+            class="text">MORE</span><span>HIDE</span></button></div>
       <div class="buttons" style="display: none;">
         <!-- <button>Chat with ai</button> -->
         <button id="button2" style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">TS
@@ -263,7 +321,7 @@
           <div
             style="display: flex; padding: 10px; position: fixed; background-color: #f8f9fa00; border-top: 1px solid #ddd;"
             class="input_area">
-            <!-- <span><img src="public/img/broom.png" alt="" style="width: fit-content; height: fit-content; position: fixed; margin-top: -79px; margin-left: 60%;"></span> -->
+            <span class="clearbtn"><i class="fa-solid fa-broom"></i></span>
             <input class="tsinput" id="user-input" type="text" placeholder="Type your message here..."
               style="flex: 1; padding: 10px; border: 1px solid #ccc; border-radius: 20px; margin-right: 10px; font-size: 16px; outline: none;" />
             <button id="send-buttonn" onclick="sendMessage()"
@@ -352,7 +410,19 @@
           document.getElementById('send-buttonn').click(); // Simulate a click on the send button
         }
       });
+      document.querySelector('.clearbtn').addEventListener('click', () => {
+        clearChat();
+      });
     });
+
+    function clearChat() {
+      // Clear all messages from local storage
+      localStorage.removeItem('chatHistory');
+
+      // Clear all messages from chat box
+      const chatBox = document.getElementById('chat-box');
+      chatBox.innerHTML = '';
+    }
 
     const API_KEY = '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';
     const API_URL = 'https://api.groq.com/openai/v1/chat/completions';
@@ -459,13 +529,13 @@
       });
     }
 
-    function addSystemMessage() {
-      const chatBox = document.getElementById('chat-box');
-      const systemMessageDiv = document.createElement('div');
-      systemMessageDiv.textContent = systemMessage.content;
-      systemMessageDiv.classList.add('system', 'message-style');
-      chatBox.appendChild(systemMessageDiv);
-    }
+    // function addSystemMessage() {
+    //   const chatBox = document.getElementById('chat-box');
+    //   const systemMessageDiv = document.createElement('div');
+    //   systemMessageDiv.textContent = systemMessage.content;
+    //   systemMessageDiv.classList.add('system', 'message-style');
+    //   chatBox.appendChild(systemMessageDiv);
+    // }
 
     function speakMessage(message) {
       const utterance = new SpeechSynthesisUtterance(message);

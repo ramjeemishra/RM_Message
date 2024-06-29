@@ -58,23 +58,27 @@ main {
 
     div.title {
       @include flexing(row, flex-start, center);
-      img{
+
+      img {
         border: 1px solid black;
       }
-      .tick{
+
+      .tick {
         width: 30px;
         height: 30px;
         margin-left: 3px;
         border: none;
       }
+
       h1 {
         font-family: $font-heading;
         font-size: $fsize;
         margin-left: 10px;
-        
+
       }
     }
-    #fullscreenButton{
+
+    #fullscreenButton {
       background: rgb(0, 0, 0);
       padding-top: 6px;
       padding-bottom: 6px;
@@ -85,6 +89,7 @@ main {
       border-radius: 5px;
       display: block;
     }
+
     .Clear {
       background: rgb(0, 0, 0);
       padding-top: 6px;
@@ -109,7 +114,8 @@ main {
     img {
       border-radius: 50%;
     }
-    i{
+
+    i {
       font-size: large;
     }
   }
@@ -125,7 +131,10 @@ main {
     div.users-window {
       // width: 350px;
       color: rgba(255, 255, 255, 0.963);
-      background-color: rgba(60, 59, 60, 0.852);
+      /* background-color: rgba(60, 59, 60, 0.852); */
+      background-color: #21D4FD;
+      background-image: linear-gradient(19deg, #21D4FD 0%, #B721FF 100%);
+
       padding: 15px 20px;
       border-top-right-radius: 20px;
       border-bottom-left-radius: 20px;
@@ -159,14 +168,31 @@ main {
         h3 {
           margin-right: 10%;
         }
-        
+
       }
 
       .users-list p {
         font-size: larger;
         font-weight: 700;
         margin-bottom: 8px;
-        color: rgba(0, 255, 255, 0.827);
+        color: rgba(0, 0, 0, 0.827);
+        position: relative;
+      }
+
+      .users-list p::before {
+        content: "\2022"; /* Unicode for bullet point */
+        margin-right: 13px; 
+        color: rgb(0, 0, 0); 
+        animation: blink 1s infinite alternate; 
+      }
+      
+      @keyframes blink {
+        0% {
+          opacity: 0;
+        }
+        100% {
+          opacity: 1;
+        }
       }
     }
 
@@ -254,9 +280,10 @@ main {
     width: 95%;
 
     header {
-      .lod{
+      .lod {
         margin-right: -15px;
       }
+
       button {
         display: block;
       }
@@ -280,9 +307,10 @@ main {
 
       .chat-window {
         .chats {
-          h5{
+          h5 {
             color: #000;
           }
+
           .message {
             max-width: 300px;
           }
