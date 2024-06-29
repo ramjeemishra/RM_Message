@@ -7,12 +7,10 @@ var users_count = document.querySelector(".users-count");
 var msg_send = document.querySelector("#user-send");
 var user_msg = document.querySelector("#user-msg");
 
-
-
 user_msg.addEventListener('keydown', function(event) {
     if (event.key === 'Enter') {
-        event.preventDefault(); // Prevents the default Enter key behavior (e.g., new line in a textarea)
-        msg_send.click(); // Trigger the click event on the send button
+        event.preventDefault();
+        msg_send.click();
     }
 });
 
@@ -24,9 +22,18 @@ function loadStoredMessages() {
     });
 }
 
-do {
-    username = prompt("Enter your name: ");
-} while (!username);
+// Get stored username from Local Storage
+username = localStorage.getItem('username');
+
+if (!username) {
+    // Prompt for username if not stored
+    do {
+        username = prompt("Enter your name: ");
+    } while (!username);
+
+    // Store the username in Local Storage
+    localStorage.setItem('username', username);
+}
 
 // Load stored messages when the page loads
 loadStoredMessages();
@@ -76,10 +83,6 @@ msg_send.addEventListener('click', () => {
         const storedMessages = JSON.parse(localStorage.getItem('chatMessages')) || [];
         storedMessages.push(data);
         localStorage.setItem('chatMessages', JSON.stringify(storedMessages));
-
-
-
-        
     }
 });
 
@@ -107,13 +110,3 @@ clearChatBtn.addEventListener('click', () => {
     // Clear chat messages from Local Storage locally
     localStorage.removeItem('chatMessages');
 });
-
-
-
-
-
-
-
-
-
-

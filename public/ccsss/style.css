@@ -23,7 +23,7 @@ main {
   border-radius: 10px;
 }
 main header {
-  background-color: cyan;
+  background: linear-gradient(90deg, #00d2ff 0%, #3a47d5 100%);
   color: black;
   padding: 7px 20px;
   display: flex;
@@ -144,7 +144,8 @@ main div.container .chat-window {
   width: 100%;
   border-radius: 15px;
   height: 100%;
-  background-color: rgba(255, 255, 255, 0.57);
+  /* background-color: rgb(255 255 255 / 57%); */
+  background: linear-gradient(90deg, #3F2B96 0%, #A8C0FF 100%);
 }
 main div.container .chat-window .chats {
   height: 72dvh;
