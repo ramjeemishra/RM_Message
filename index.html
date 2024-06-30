@@ -316,7 +316,7 @@
             style="border: 1px solid black; color: white; padding: 5px 5px 5px 5px; border-radius: 9px; text-align: center;">
             You are chatting with our ai</p>
           <div id="chat-box"
-            style="flex: 1; padding: 20px; height: 534px; overflow-y: scroll; border-bottom: 1px solid #ddd; display: flex; flex-direction: column; gap: 10px;">
+            style="flex: 1; padding: 20px; height: 75dvh; overflow-y: scroll; border-bottom: 1px solid #ddd; display: flex; flex-direction: column; gap: 10px;">
           </div>
           <div
             style="display: flex; padding: 10px; position: fixed; background-color: #f8f9fa00; border-top: 1px solid #ddd;"
@@ -406,8 +406,8 @@
       loadChatHistory();
       document.getElementById('user-input').addEventListener('keypress', function (event) {
         if (event.key === 'Enter') {
-          event.preventDefault(); // Prevent the default action to avoid submitting a form if it's inside one
-          document.getElementById('send-buttonn').click(); // Simulate a click on the send button
+          event.preventDefault();
+          document.getElementById('send-buttonn').click();
         }
       });
       document.querySelector('.clearbtn').addEventListener('click', () => {
@@ -416,10 +416,8 @@
     });
 
     function clearChat() {
-      // Clear all messages from local storage
       localStorage.removeItem('chatHistory');
 
-      // Clear all messages from chat box
       const chatBox = document.getElementById('chat-box');
       chatBox.innerHTML = '';
     }
@@ -489,8 +487,8 @@
       messageDiv.style.color = "aliceblue"
       messageDiv.style.width = "fit-content";
       messageDiv.style.backgroundColor = "rgb(245 245 245 / 36%)";
-      messageDiv.style.border = "1px solid #ddd"; // Additional styling
-      messageDiv.style.marginBottom = "10px"; // Additional styling
+      messageDiv.style.border = "1px solid #ddd"; 
+      messageDiv.style.marginBottom = "10px"; 
       messageDiv.classList.add('message', sender.toLowerCase());
 
       chatBox.appendChild(messageDiv);
