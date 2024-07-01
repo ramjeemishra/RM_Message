@@ -252,8 +252,8 @@
       </div>
       <div class="main"><button class="button-57" onclick="show_hide1()"><span
             class="text">MORE</span><span>HIDE</span></button></div>
-      <div class="buttons" style="display: none;">
-        <!-- <button>Chat with ai</button> -->
+
+      <div class="buttons" style="display: none;" id="additionalButtons">
         <button id="button2" style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">TS
           AI</button>
         <button id="button1">CHAT box</button>
@@ -277,7 +277,6 @@
         </div>
         <div class="users-list">
         </div>
-
       </div>
 
       <div id="tab1" class="chat-window">
@@ -336,15 +335,19 @@
 
 
   <script>
-        document.getElementById('user-msg').addEventListener('focus', function() {
-    window.scrollTo(0, document.body.scrollHeight);
-});
-    document.getElementById('user-input').addEventListener('focus', function() {
-    window.scrollTo(0, document.body.scrollHeight);
-});
+    //code to scrool msg
+    document.getElementById('user-msg').addEventListener('focus', function () {
+      window.scrollTo(0, document.body.scrollHeight);
+    });
+    document.getElementById('user-input').addEventListener('focus', function () {
+      window.scrollTo(0, document.body.scrollHeight);
+    });
 
 
 
+
+
+    //user information or all name of users
 
     let uwindow = document.querySelector('.users-window');
     function show_hide() {
@@ -356,15 +359,37 @@
       }
     }
 
-    let unindow = document.querySelector('.buttons');
-    function show_hide1() {
-      if (unindow.style.display == "block") {
-        unindow.style.display = "none";
-      }
-      else {
-        unindow.style.display = "block";
-      }
+
+
+
+    //all buttons
+    let unindow = document.getElementById('additionalButtons');
+  let clickCounter = 0;
+
+  function show_hide1() {
+    if (unindow.style.display == "block") {
+      unindow.style.display = "none";
+    } else {
+      unindow.style.display = "block";
+      // Use a timeout to ensure the event listener is added after the button is clicked
+      setTimeout(function() {
+        document.addEventListener('click', function handler(event) {
+          // Check if the click is outside the buttons div
+          if (!unindow.contains(event.target) && event.target.className !== 'button-57') {
+            unindow.style.display = "none";
+            clickCounter++;
+            if (clickCounter >= 5) {
+              document.removeEventListener('click', handler);
+            }
+          }
+        });
+      }, 0);
     }
+  }
+
+
+
+
 
 
     const fullscreenButton = document.getElementById('fullscreenButton');
@@ -494,8 +519,8 @@
       messageDiv.style.color = "aliceblue"
       messageDiv.style.width = "fit-content";
       messageDiv.style.backgroundColor = "rgb(245 245 245 / 36%)";
-      messageDiv.style.border = "1px solid #ddd"; 
-      messageDiv.style.marginBottom = "10px"; 
+      messageDiv.style.border = "1px solid #ddd";
+      messageDiv.style.marginBottom = "10px";
       messageDiv.classList.add('message', sender.toLowerCase());
 
       chatBox.appendChild(messageDiv);
