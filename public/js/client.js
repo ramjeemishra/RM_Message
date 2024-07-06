@@ -125,6 +125,11 @@ function appendMessage(data, status) {
 
 socket.on('message', (data) => {
     appendMessage(data, 'incoming');
+    
+    // Store the message in Local Storage
+    const storedMessages = JSON.parse(localStorage.getItem('chatMessages')) || [];
+    storedMessages.push(data);
+    localStorage.setItem('chatMessages', JSON.stringify(storedMessages));
 });
 
 const clearChatBtn = document.getElementById('clearChatBtn');
@@ -141,4 +146,3 @@ function playSound() {
         console.error("Notification sound play failed:", error);
     });
 }
-
