@@ -9,6 +9,7 @@
     type="image/x-icon"> -->
   <link rel="shortcut icon" href="public/img/chatlogoo.png" type="image/x-icon">
   <link rel="stylesheet" href="ccsss/style.css">
+  <!-- <link rel="stylesheet" href="emoji.css"> -->
   <script src="https://kit.fontawesome.com/7221c7cc44.js" crossorigin="anonymous"></script>
   <style>
     .buttons {
@@ -236,7 +237,53 @@
       opacity: 1;
       transition: all 900ms cubic-bezier(0.48, 0, 0.12, 1);
     }
+    .containerr {
+    text-align: center;
+}
+
+#emojiInput {
+    padding: 10px;
+    width: 200px;
+    font-size: 16px;
+}
+
+#toggleEmojiPanel {
+    border: none;
+    background-color: #dddddd00;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.emoji-panel {
+    display: none;
+    margin-top: 10px;
+    padding: 10px;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.emoji-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.emoji {
+    font-size: 24px;
+    cursor: pointer;
+    margin: 5px;
+    transition: transform 0.2s;
+}
+
+.emoji:hover {
+    transform: scale(1.2);
+}
+
   </style>
+  <script src="emoji.js"></script>
 </head>
 
 <body>
@@ -287,6 +334,118 @@
 
         </div>
         <div class="user-input">
+          <div class="containerr">
+            <button id="toggleEmojiPanel">😊</button>
+            <div id="emojiPanel" class="emoji-panel">
+                <div class="emoji-container">
+                    <span class="emoji">😀</span>
+                    <span class="emoji">😁</span>
+                    <span class="emoji">😂</span>
+                    <span class="emoji">🤣</span>
+                    <span class="emoji">😃</span>
+                    <span class="emoji">😄</span>
+                    <span class="emoji">😅</span>
+                    <span class="emoji">😆</span>
+                    <span class="emoji">😉</span>
+                    <span class="emoji">😊</span>
+                    <span class="emoji">😋</span>
+                    <span class="emoji">😎</span>
+                    <span class="emoji">😍</span>
+                    <span class="emoji">😘</span>
+                    <span class="emoji">😗</span>
+                    <span class="emoji">😙</span>
+                    <span class="emoji">😚</span>
+                    <span class="emoji">🙂</span>
+                    <span class="emoji">🤗</span>
+                    <span class="emoji">🤩</span>
+                    <span class="emoji">🤔</span>
+                    <span class="emoji">🤨</span>
+                    <span class="emoji">😐</span>
+                    <span class="emoji">😑</span>
+                    <span class="emoji">😶</span>
+                    <span class="emoji">🙄</span>
+                    <span class="emoji">😏</span>
+                    <span class="emoji">😣</span>
+                    <span class="emoji">😥</span>
+                    <span class="emoji">😮</span>
+                    <span class="emoji">🤐</span>
+                    <span class="emoji">😯</span>
+                    <span class="emoji">😪</span>
+                    <span class="emoji">😫</span>
+                    <span class="emoji">😴</span>
+                    <span class="emoji">😌</span>
+                    <span class="emoji">😛</span>
+                    <span class="emoji">😜</span>
+                    <span class="emoji">😝</span>
+                    <span class="emoji">🤤</span>
+                    <span class="emoji">😒</span>
+                    <span class="emoji">😓</span>
+                    <span class="emoji">😔</span>
+                    <span class="emoji">😕</span>
+                    <span class="emoji">🙃</span>
+                    <span class="emoji">🤑</span>
+                    <span class="emoji">😲</span>
+                    <span class="emoji">☹️</span>
+                    <span class="emoji">🙁</span>
+                    <span class="emoji">😖</span>
+                    <span class="emoji">😞</span>
+                    <span class="emoji">😟</span>
+                    <span class="emoji">😤</span>
+                    <span class="emoji">😢</span>
+                    <span class="emoji">😭</span>
+                    <span class="emoji">😦</span>
+                    <span class="emoji">😧</span>
+                    <span class="emoji">😨</span>
+                    <span class="emoji">😩</span>
+                    <span class="emoji">🤯</span>
+                    <span class="emoji">😬</span>
+                    <span class="emoji">😰</span>
+                    <span class="emoji">😱</span>
+                    <span class="emoji">🥵</span>
+                    <span class="emoji">🥶</span>
+                    <span class="emoji">😳</span>
+                    <span class="emoji">🤪</span>
+                    <span class="emoji">😵</span>
+                    <span class="emoji">😡</span>
+                    <span class="emoji">😠</span>
+                    <span class="emoji">🤬</span>
+                    <span class="emoji">😷</span>
+                    <span class="emoji">🤒</span>
+                    <span class="emoji">🤕</span>
+                    <span class="emoji">🤢</span>
+                    <span class="emoji">🤮</span>
+                    <span class="emoji">🤧</span>
+                    <span class="emoji">😇</span>
+                    <span class="emoji">🥳</span>
+                    <span class="emoji">🥺</span>
+                    <span class="emoji">🤠</span>
+                    <span class="emoji">🤡</span>
+                    <span class="emoji">🤥</span>
+                    <span class="emoji">🤫</span>
+                    <span class="emoji">🤭</span>
+                    <span class="emoji">🧐</span>
+                    <span class="emoji">🤓</span>
+                    <span class="emoji">😈</span>
+                    <span class="emoji">👿</span>
+                    <span class="emoji">👹</span>
+                    <span class="emoji">👺</span>
+                    <span class="emoji">💀</span>
+                    <span class="emoji">👻</span>
+                    <span class="emoji">👽</span>
+                    <span class="emoji">🤖</span>
+                    <span class="emoji">💩</span>
+                    <span class="emoji">😺</span>
+                    <span class="emoji">😸</span>
+                    <span class="emoji">😹</span>
+                    <span class="emoji">😻</span>
+                    <span class="emoji">😼</span>
+                    <span class="emoji">😽</span>
+                    <span class="emoji">🙀</span>
+                    <span class="emoji">😿</span>
+                    <span class="emoji">😾</span>
+                </div>
+            </div>
+        </div>
           <input id="user-msg" type="text" placeholder="Type your message">
           <button type="button" id="user-send">Send</button>
         </div>
@@ -608,6 +767,31 @@ document.addEventListener('DOMContentLoaded', () => {
         speechSynthesis.getVoices();
       };
     }
+
+
+
+
+
+
+
+
+
+    //emoji javascrip code below
+    document.addEventListener('DOMContentLoaded', function() {
+    const toggleEmojiPanelButton = document.getElementById('toggleEmojiPanel');
+    const emojiPanel = document.getElementById('emojiPanel');
+    const emojiInput = document.getElementById('user-msg');
+
+    toggleEmojiPanelButton.addEventListener('click', function() {
+        emojiPanel.style.display = emojiPanel.style.display === 'block' ? 'none' : 'block';
+    });
+
+    emojiPanel.addEventListener('click', function(event) {
+        if (event.target.classList.contains('emoji')) {
+            emojiInput.value += event.target.textContent;
+        }
+    });
+});
 
   </script>
 
