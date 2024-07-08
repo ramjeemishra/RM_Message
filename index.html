@@ -297,6 +297,15 @@
     .emoji:hover {
       transform: scale(1.2);
     }
+    #user-msg{
+          font-size: 16px;
+          background-color: white;
+          padding: 10px 20px;
+          outline: none;
+          border: none;
+          width: 100%;
+          border-radius: 50px 0 0 50px;
+        }
   </style>
   <script src="emoji.js"></script>
 </head>
@@ -461,7 +470,8 @@
         </div>
         <div class="user-input">
           <button id="toggleEmojiPanel">😊</button>
-          <input id="user-msg" type="text" placeholder="Type your message">
+          <!-- <input id="user-msg" type="text" placeholder="Type your message"> -->
+          <textarea name="" id="user-msg" rows="1" placeholder="Send me your thoughts... 🫣"></textarea>
           <button type="button" id="user-send">Send</button>
         </div>
       </div>
@@ -509,6 +519,7 @@
 
 
   <script>
+
 
     document.addEventListener('DOMContentLoaded', () => {
       const input = document.getElementById('user-msg');
