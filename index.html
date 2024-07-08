@@ -808,6 +808,29 @@
       });
     });
 
+
+    // script.js
+document.getElementById('toggleEmojiPanel').addEventListener('click', function() {
+  var elements = document.querySelectorAll('.chats');
+  var elementss = document.querySelectorAll('.containerr');
+  var elementsss = document.querySelectorAll('.user-input');
+  elements.forEach(function(element) {
+    element.style.height = "50dvh";
+  });
+  
+  elementss.forEach(function(element) {
+    element.style.marginTop = "36dvh"; // Corrected the property name
+  });
+
+  elementsss.forEach(function(element) {
+    element.style.marginTop = "-36dvh"; // Corrected the property name
+  });
+});
+
+
+
+
+
   </script>
 
   <script src="/socket.io/socket.io.js"></script>
