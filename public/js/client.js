@@ -107,21 +107,37 @@ msg_send.addEventListener('click', () => {
 function appendMessage(data, status) {
     const div = document.createElement('div');
     div.classList.add('message', status);
-    const content = `
-    <p>${data.msg}</p>
-    <h1 style="color: black; font-size: 9px; margin-bottom:-17px;">${data.user}</h1>&nbsp;&nbsp;<br>
-    `;
-    div.innerHTML = content;
+
+    // Create a paragraph element for the message text
+    const messageElement = document.createElement('p');
+    messageElement.textContent = data.msg;  // Use textContent to prevent XSS attacks
+
+    // Append the message text to the message div
+    div.appendChild(messageElement);
+
+    // Create a span element for the username
+    const userElement = document.createElement('span');
+    userElement.style.color = 'black';
+    userElement.style.fontSize = '9px';
+    userElement.textContent = data.user;
+
+    // Append the username after the message text
+    div.appendChild(userElement);
+
+    // Append the message div to the chat container
     chats.appendChild(div);
+
+    // Scroll to the bottom of the chat container
     chats.scrollTop = chats.scrollHeight;
 
     // Play notification sound for incoming messages
-    if (status === 'incoming') {
+    if (status === 'incoming' && notificationSound) {
         notificationSound.play().catch(error => {
             console.error("Notification sound play failed:", error);
         });
     }
 }
+
 
 socket.on('message', (data) => {
     appendMessage(data, 'incoming');
