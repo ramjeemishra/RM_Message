@@ -266,57 +266,57 @@ document.addEventListener('DOMContentLoaded', loadImagesFromLocalStorage);
 
 
 
-// Select the image input and other elements
-const imageInput = document.getElementById('imageInput');
-const imgPreview = document.querySelector('.imagePreview');
-const confirmationmsg = document.querySelector('.Confirmationmsg')
-const sendButton = document.getElementById('sendimg');
-const uploadButton = document.getElementById('uploadButton');
+// // Select the image input and other elements
+// const imageInput = document.getElementById('imageInput');
+// const imgPreview = document.querySelector('.imagePreview');
+// const confirmationmsg = document.querySelector('.Confirmationmsg')
+// const sendButton = document.getElementById('sendimg');
+// const uploadButton = document.getElementById('uploadButton');
 
-// Add event listener to the upload button
-uploadButton.addEventListener('click', function () {
-    imageInput.click(); // Simulate a click on the file input
-});
+// // Add event listener to the upload button
+// uploadButton.addEventListener('click', function () {
+//     imageInput.click(); // Simulate a click on the file input
+// });
 
-// Add event listener when a file is selected
-imageInput.addEventListener('change', function () {
-    const file = this.files[0]; // Get the selected file
+// // Add event listener when a file is selected
+// imageInput.addEventListener('change', function () {
+//     const file = this.files[0]; // Get the selected file
 
-    if (file) {
-        const reader = new FileReader(); // Create a FileReader instance
+//     if (file) {
+//         const reader = new FileReader(); // Create a FileReader instance
 
-        // Closure to capture the file information.
-        reader.onload = function (e) {
-            // Render thumbnail preview of the image
-            const imgElement = document.createElement('img');
-            imgElement.src = e.target.result;
-            imgElement.style.maxWidth = '100%'; // Adjust as needed
-            imgElement.style.maxHeight = '200px'; // Adjust as needed
-            imagePreview.innerHTML = ''; // Clear previous preview
-            imagePreview.appendChild(imgElement); // Append the image preview
+//         // Closure to capture the file information.
+//         reader.onload = function (e) {
+//             // Render thumbnail preview of the image
+//             const imgElement = document.createElement('img');
+//             imgElement.src = e.target.result;
+//             imgElement.style.maxWidth = '100%'; // Adjust as needed
+//             imgElement.style.maxHeight = '200px'; // Adjust as needed
+//             imagePreview.innerHTML = ''; // Clear previous preview
+//             imagePreview.appendChild(imgElement); // Append the image preview
 
-            // Show the send button
-            // sendButton.style.display = 'block';
-            // imgPreview.style.display = 'block';
-            // confirmationmsg.style.display = 'block'
-        };
+//             // Show the send button
+//             // sendButton.style.display = 'block';
+//             // imgPreview.style.display = 'block';
+//             // confirmationmsg.style.display = 'block'
+//         };
 
-        // Read in the image file as a data URL
-        reader.readAsDataURL(file);
-    }
-});
+//         // Read in the image file as a data URL
+//         reader.readAsDataURL(file);
+//     }
+// });
 
-// Example of sending functionality (replace with your actual functionality)
-sendButton.addEventListener('click', function () {
-    // Example: Send the selected image to server or perform other actions
-    const selectedImage = imagePreview.querySelector('img');
-    if (selectedImage) {
-        // const username = 'User'; // Replace with dynamic username
-        displayImage(username, selectedImage.src); // Display the image in the chat
-        imagePreview.innerHTML = ''; // Clear the preview
-        sendButton.style.display = 'none'; // Hide the send button
-        imagePreview.style.display = 'none'; // Hide the image preview
-    } else {
-        alert('No image selected.');
-    }
-});
+// // Example of sending functionality (replace with your actual functionality)
+// sendButton.addEventListener('click', function () {
+//     // Example: Send the selected image to server or perform other actions
+//     const selectedImage = imagePreview.querySelector('img');
+//     if (selectedImage) {
+//         // const username = 'User'; // Replace with dynamic username
+//         displayImage(username, selectedImage.src); // Display the image in the chat
+//         imagePreview.innerHTML = ''; // Clear the preview
+//         sendButton.style.display = 'none'; // Hide the send button
+//         imagePreview.style.display = 'none'; // Hide the image preview
+//     } else {
+//         alert('No image selected.');
+//     }
+// });
