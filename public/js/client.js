@@ -178,8 +178,11 @@ clearChatBtn.addEventListener('click', () => {
     const imageMessages = document.querySelectorAll('.image-message');
     imageMessages.forEach(message => message.remove());
 });
+
+// let currentUser = 'User'; // Replace this with actual logic to get the current username
+
 // Function to display an image message
-function displayImage(username, imageData) {
+function displayImage(username, imageUrl) {
     const messagesDiv = document.getElementById('messages');
     
     const messageContainer = document.createElement('div');
@@ -195,7 +198,7 @@ function displayImage(username, imageData) {
 
     // Create an img element for the shared image
     const imageElement = document.createElement('img');
-    imageElement.src = imageData;
+    imageElement.src = imageUrl;
     imageElement.alt = 'Shared Image';
     imageElement.style.maxWidth = '100%'; // Style the image
     imageElement.style.borderRadius = '8px'; // Rounded corners
@@ -203,42 +206,65 @@ function displayImage(username, imageData) {
     messageContainer.appendChild(imageElement);
     messagesDiv.appendChild(messageContainer);
     messagesDiv.scrollTop = messagesDiv.scrollHeight;
-
-    // Store the image reference in Local Storage
-    let storedImages;
-    try {
-        storedImages = JSON.parse(localStorage.getItem('storedImages')) || [];
-    } catch (e) {
-        storedImages = [];
-    }
-    const imageExists = storedImages.some(img => img.username === username && img.imageData === imageData);
-    
-    if (!imageExists) {
-        storedImages.push({ username, imageData });
-        localStorage.setItem('storedImages', JSON.stringify(storedImages));
-    }
 }
 
-// Function to initialize stored images on page load
-function initializeStoredImages() {
-    let storedImages;
-    try {
-        storedImages = JSON.parse(localStorage.getItem('storedImages')) || [];
-    } catch (e) {
-        storedImages = [];
-    }
-    const displayedImages = new Set(); // To track already displayed images
-    
-    storedImages.forEach(({ username, imageData }) => {
-        // Check if this image has already been displayed
-        if (!displayedImages.has(imageData)) {
-            displayImage(username, imageData);
-            displayedImages.add(imageData); // Add to displayed images set
-        }
+// Save image to local storage
+function saveImageToLocalStorage(username, imageUrl) {
+    const storedImages = JSON.parse(localStorage.getItem('storedImages')) || [];
+    storedImages.push({ username, imageUrl });
+    localStorage.setItem('storedImages', JSON.stringify(storedImages));
+}
+
+// Load images from local storage
+function loadImagesFromLocalStorage() {
+    const storedImages = JSON.parse(localStorage.getItem('storedImages')) || [];
+    storedImages.forEach(({ username, imageUrl }) => {
+        displayImage(username, imageUrl);
     });
 }
 
-document.addEventListener('DOMContentLoaded', initializeStoredImages);
+// Handle image upload
+document.getElementById('uploadButton').addEventListener('click', function () {
+    document.getElementById('imageInput').click();
+});
+
+document.getElementById('imageInput').addEventListener('change', function () {
+    const file = this.files[0];
+    if (file) {
+        const formData = new FormData();
+        formData.append('image', file);
+        formData.append('username', username); // Replace with dynamic username
+
+        fetch('/upload', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            // displayImage(username, data.imageUrl); // Display the image locally
+            // saveImageToLocalStorage(username, data.imageUrl); // Save image to local storage
+            socket.emit('imageMessage', { sender: username, imageUrl: data.imageUrl }); // Broadcast the image
+        })
+        .catch(err => console.error('Error uploading image:', err));
+    }
+});
+
+// Listen for image messages from the server
+socket.on('imageMessage', ({ sender, imageUrl }) => {
+    displayImage(sender, imageUrl);
+    saveImageToLocalStorage(sender, imageUrl); // Save image to local storage
+});
+
+// Load images from local storage on page load
+document.addEventListener('DOMContentLoaded', loadImagesFromLocalStorage);
+
+
+
+
+
+
+
+
 
 // Select the image input and other elements
 const imageInput = document.getElementById('imageInput');
@@ -270,9 +296,9 @@ imageInput.addEventListener('change', function () {
             imagePreview.appendChild(imgElement); // Append the image preview
 
             // Show the send button
-            sendButton.style.display = 'block';
-            imgPreview.style.display = 'block';
-            confirmationmsg.style.display = 'block'
+            // sendButton.style.display = 'block';
+            // imgPreview.style.display = 'block';
+            // confirmationmsg.style.display = 'block'
         };
 
         // Read in the image file as a data URL
@@ -285,7 +311,7 @@ sendButton.addEventListener('click', function () {
     // Example: Send the selected image to server or perform other actions
     const selectedImage = imagePreview.querySelector('img');
     if (selectedImage) {
-        // const username = us; // Replace with dynamic username
+        // const username = 'User'; // Replace with dynamic username
         displayImage(username, selectedImage.src); // Display the image in the chat
         imagePreview.innerHTML = ''; // Clear the preview
         sendButton.style.display = 'none'; // Hide the send button
