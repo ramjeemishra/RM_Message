@@ -257,20 +257,24 @@
       padding-right: 0px;
       margin-left: -12%;
     }
-@media (min-width: 457px) {
-  #toggleEmojiPanel{
-    margin-left: -5%;
-  }
-}
-@media (min-width: 979px) {
-  #toggleEmojiPanel{
-    margin-left: -2%;
-  }
-  /* .emoji-panel{
+
+    @media (min-width: 457px) {
+      #toggleEmojiPanel {
+        margin-left: -5%;
+      }
+    }
+
+    @media (min-width: 979px) {
+      #toggleEmojiPanel {
+        margin-left: -2%;
+      }
+
+      /* .emoji-panel{
     overflow-x: scroll;
     height: 45px;
   } */
-}
+    }
+
     .emoji-panel {
       display: none;
       margin-top: -200px;
@@ -298,15 +302,16 @@
     .emoji:hover {
       transform: scale(1.2);
     }
-    #user-msg{
-          font-size: 16px;
-          background-color: white;
-          padding: 10px 20px;
-          outline: none;
-          border: none;
-          width: 100%;
-          border-radius: 50px 0 0 50px;
-        }
+
+    #user-msg {
+      font-size: 16px;
+      background-color: white;
+      padding: 10px 20px;
+      outline: none;
+      border: none;
+      width: 100%;
+      border-radius: 50px 0 0 50px;
+    }
   </style>
 </head>
 
@@ -351,10 +356,13 @@
       </div>
 
       <div id="tab1" class="chat-window">
-        <div class="chats">
+        <div class="chats" id="messages">
           <p
             style="border: 1px solid black; color: white; padding: 5px 5px 5px 5px; border-radius: 9px; text-align: center;">
             Your chats can be seen by all the user</p>
+
+          <div class="imagePreview"><div id="imagePreview"></div><button id="sendimg" style="display: none;">Send</button></div>
+          
 
         </div>
         <div class="containerr">
@@ -469,10 +477,16 @@
           </div>
         </div>
         <div class="user-input">
+
+          <input type="file" id="imageInput" accept="image/*" style="display: none;">
           <button id="toggleEmojiPanel">😊</button>
           <input id="user-msg" type="text" placeholder="Send me your thoughts... 🫣">
-          <!-- <textarea name="" id="user-msg" rows="1" placeholder="Send me your thoughts... 🫣"></textarea> -->
           <button type="button" id="user-send">Send</button>
+          <label for="imageInput">
+            <img src="/img/upload.png" alt="Upload Image" style="cursor: pointer;" id="uploadButton">
+          </label>
+          <!-- <textarea name="" id="user-msg" rows="1" placeholder="Send me your thoughts... 🫣"></textarea> -->
+          <!-- <button id="sendImageBtn">Send Image</button> -->
         </div>
       </div>
 
@@ -519,6 +533,7 @@
 
 
   <script>
+
 
 
     document.addEventListener('DOMContentLoaded', () => {
@@ -821,22 +836,22 @@
 
 
     // script.js
-document.getElementById('toggleEmojiPanel').addEventListener('click', function() {
-  var elements = document.querySelectorAll('.chats');
-  var elementss = document.querySelectorAll('.containerr');
-  var elementsss = document.querySelectorAll('.user-input');
-  elements.forEach(function(element) {
-    element.style.height = "50dvh";
-  });
-  
-  elementss.forEach(function(element) {
-    element.style.marginTop = "36dvh"; // Corrected the property name
-  });
+    document.getElementById('toggleEmojiPanel').addEventListener('click', function () {
+      var elements = document.querySelectorAll('.chats');
+      var elementss = document.querySelectorAll('.containerr');
+      var elementsss = document.querySelectorAll('.user-input');
+      elements.forEach(function (element) {
+        element.style.height = "50dvh";
+      });
 
-  elementsss.forEach(function(element) {
-    element.style.marginTop = "-36dvh"; // Corrected the property name
-  });
-});
+      elementss.forEach(function (element) {
+        element.style.marginTop = "36dvh"; // Corrected the property name
+      });
+
+      elementsss.forEach(function (element) {
+        element.style.marginTop = "-36dvh"; // Corrected the property name
+      });
+    });
 
 
 

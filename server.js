@@ -3,15 +3,15 @@ const express = require("express");
 const { disconnect } = require("process");
 
 
-const app=express();
+const app = express();
 
 const server = http.createServer(app);
 const port = process.env.PORT || 4000;
 
-app.use(express.static(__dirname+'/public'));
+app.use(express.static(__dirname + '/public'));
 
-app.get('/',(req,res)=>{
-  res.sendFile(__dirname+'/index.html');
+app.get('/', (req, res) => {
+  res.sendFile(__dirname + '/index.html');
 });
 
 
@@ -20,24 +20,31 @@ app.get('/',(req,res)=>{
 
 // Socket.io setup
 
-const io=require("socket.io")(server);
-var users={};
+const io = require("socket.io")(server);
+var users = {};
 
-io.on("connection",(socket)=>{
-  socket.on("new-user-joined",(username)=>{
-    users[socket.id]=username;
-    socket.broadcast.emit('user-connected',username);
-    io.emit("user-list",users);
+io.on("connection", (socket) => {
+  socket.on("new-user-joined", (username) => {
+    users[socket.id] = username;
+    socket.broadcast.emit('user-connected', username);
+    io.emit("user-list", users);
   });
-  socket.on("disconnect",()=>{
-    socket.broadcast.emit('user-disconnected',user=users[socket.id]);
+  socket.on("disconnect", () => {
+    socket.broadcast.emit('user-disconnected', user = users[socket.id]);
     delete users[socket.id];
-    io.emit("user-list",users);
+    io.emit("user-list", users);
   });
 
-  socket.on('message',(data)=>{
-    socket.broadcast.emit("message",{user: data.user,msg: data.msg});
+  socket.on('message', (data) => {
+    socket.broadcast.emit("message", { user: data.user, msg: data.msg });
   });
+
+  // Handle image messages from clients
+  socket.on('imageMessage', ({ imageData }) => {
+    const sender = users[socket.id]; // Get the sender's phone number
+    socket.broadcast.emit('imageMessage', { sender, imageData }); // Broadcast the image to all clients except the sender
+  });
+
 });
 
 

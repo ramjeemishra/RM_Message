@@ -162,3 +162,135 @@ function playSound() {
         console.error("Notification sound play failed:", error);
     });
 }
+
+
+clearChatBtn.addEventListener('click', () => {
+    // Clear chat messages from the chat display locally
+    chats.innerHTML = '';
+
+    // Clear chat messages from Local Storage locally
+    localStorage.removeItem('chatMessages');
+
+    // Clear stored images data from Local Storage
+    localStorage.removeItem('storedImages');
+
+    // Optionally, you may also want to clear displayed images from the UI
+    const imageMessages = document.querySelectorAll('.image-message');
+    imageMessages.forEach(message => message.remove());
+});
+// Function to display an image message
+function displayImage(username, imageData) {
+    const messagesDiv = document.getElementById('messages');
+    
+    const messageContainer = document.createElement('div');
+    messageContainer.classList.add('message', 'image-message');
+
+    // Create a span element for the sender's name
+    const senderElement = document.createElement('span');
+    senderElement.style.color = 'black';
+    senderElement.style.fontWeight = 'bold';
+    senderElement.style.paddingRight = '1%';
+    senderElement.textContent = username;
+    messageContainer.appendChild(senderElement);
+
+    // Create an img element for the shared image
+    const imageElement = document.createElement('img');
+    imageElement.src = imageData;
+    imageElement.alt = 'Shared Image';
+    imageElement.style.maxWidth = '100%'; // Style the image
+    imageElement.style.borderRadius = '8px'; // Rounded corners
+    
+    messageContainer.appendChild(imageElement);
+    messagesDiv.appendChild(messageContainer);
+    messagesDiv.scrollTop = messagesDiv.scrollHeight;
+
+    // Store the image reference in Local Storage
+    let storedImages;
+    try {
+        storedImages = JSON.parse(localStorage.getItem('storedImages')) || [];
+    } catch (e) {
+        storedImages = [];
+    }
+    const imageExists = storedImages.some(img => img.username === username && img.imageData === imageData);
+    
+    if (!imageExists) {
+        storedImages.push({ username, imageData });
+        localStorage.setItem('storedImages', JSON.stringify(storedImages));
+    }
+}
+
+// Function to initialize stored images on page load
+function initializeStoredImages() {
+    let storedImages;
+    try {
+        storedImages = JSON.parse(localStorage.getItem('storedImages')) || [];
+    } catch (e) {
+        storedImages = [];
+    }
+    const displayedImages = new Set(); // To track already displayed images
+    
+    storedImages.forEach(({ username, imageData }) => {
+        // Check if this image has already been displayed
+        if (!displayedImages.has(imageData)) {
+            displayImage(username, imageData);
+            displayedImages.add(imageData); // Add to displayed images set
+        }
+    });
+}
+
+document.addEventListener('DOMContentLoaded', initializeStoredImages);
+
+// Select the image input and other elements
+const imageInput = document.getElementById('imageInput');
+const imgPreview = document.querySelector('.imagePreview');
+const confirmationmsg = document.querySelector('.Confirmationmsg')
+const sendButton = document.getElementById('sendimg');
+const uploadButton = document.getElementById('uploadButton');
+
+// Add event listener to the upload button
+uploadButton.addEventListener('click', function () {
+    imageInput.click(); // Simulate a click on the file input
+});
+
+// Add event listener when a file is selected
+imageInput.addEventListener('change', function () {
+    const file = this.files[0]; // Get the selected file
+
+    if (file) {
+        const reader = new FileReader(); // Create a FileReader instance
+
+        // Closure to capture the file information.
+        reader.onload = function (e) {
+            // Render thumbnail preview of the image
+            const imgElement = document.createElement('img');
+            imgElement.src = e.target.result;
+            imgElement.style.maxWidth = '100%'; // Adjust as needed
+            imgElement.style.maxHeight = '200px'; // Adjust as needed
+            imagePreview.innerHTML = ''; // Clear previous preview
+            imagePreview.appendChild(imgElement); // Append the image preview
+
+            // Show the send button
+            sendButton.style.display = 'block';
+            imgPreview.style.display = 'block';
+            confirmationmsg.style.display = 'block'
+        };
+
+        // Read in the image file as a data URL
+        reader.readAsDataURL(file);
+    }
+});
+
+// Example of sending functionality (replace with your actual functionality)
+sendButton.addEventListener('click', function () {
+    // Example: Send the selected image to server or perform other actions
+    const selectedImage = imagePreview.querySelector('img');
+    if (selectedImage) {
+        // const username = us; // Replace with dynamic username
+        displayImage(username, selectedImage.src); // Display the image in the chat
+        imagePreview.innerHTML = ''; // Clear the preview
+        sendButton.style.display = 'none'; // Hide the send button
+        imagePreview.style.display = 'none'; // Hide the image preview
+    } else {
+        alert('No image selected.');
+    }
+});
