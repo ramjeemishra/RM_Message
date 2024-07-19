@@ -224,30 +224,30 @@ function loadImagesFromLocalStorage() {
 }
 
 // Handle image upload
-document.getElementById('uploadButton').addEventListener('click', function () {
-    document.getElementById('imageInput').click();
-});
+// document.getElementById('uploadButton').addEventListener('click', function () {
+//     document.getElementById('imageInput').click();
+// });
 
-document.getElementById('imageInput').addEventListener('change', function () {
-    const file = this.files[0];
-    if (file) {
-        const formData = new FormData();
-        formData.append('image', file);
-        formData.append('username', username); // Replace with dynamic username
+// document.getElementById('imageInput').addEventListener('change', function () {
+//     const file = this.files[0];
+//     if (file) {
+//         const formData = new FormData();
+//         formData.append('image', file);
+//         formData.append('username', username); // Replace with dynamic username
 
-        fetch('/upload', {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
-            // displayImage(username, data.imageUrl); // Display the image locally
-            // saveImageToLocalStorage(username, data.imageUrl); // Save image to local storage
-            socket.emit('imageMessage', { sender: username, imageUrl: data.imageUrl }); // Broadcast the image
-        })
-        .catch(err => console.error('Error uploading image:', err));
-    }
-});
+//         fetch('/upload', {
+//             method: 'POST',
+//             body: formData
+//         })
+//         .then(response => response.json())
+//         .then(data => {
+//             // displayImage(username, data.imageUrl); // Display the image locally
+//             // saveImageToLocalStorage(username, data.imageUrl); // Save image to local storage
+//             socket.emit('imageMessage', { sender: username, imageUrl: data.imageUrl }); // Broadcast the image
+//         })
+//         .catch(err => console.error('Error uploading image:', err));
+//     }
+// });
 
 // Listen for image messages from the server
 socket.on('imageMessage', ({ sender, imageUrl }) => {
