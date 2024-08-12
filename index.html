@@ -64,7 +64,14 @@
       display: block;
     }
 
-
+    .me{
+      background-color: rgba(0, 0, 0, 0.6);
+      color: aliceblue;
+    }
+    .nexus{
+      background-color:rgb(245 245 245 / 36%);
+      color: #000000;
+    }
     .sender.me {
       background: -webkit-linear-gradient(#eee, #10e7ff);
       -webkit-background-clip: text;
@@ -733,6 +740,7 @@
       const messageSpan = document.createElement('span');
       messageSpan.textContent = message;
       messageSpan.classList.add('message-content');
+      messageSpan.style.whiteSpace = "pre-line";
 
       // Append both spans to the message div
       messageDiv.appendChild(senderSpan);
@@ -740,9 +748,8 @@
       messageDiv.style.borderRadius = "15px";
       messageDiv.style.padding = "6px";
       messageDiv.style.fontWeight = "bold"
-      messageDiv.style.color = "aliceblue"
+      // messageDiv.style.color = "aliceblue"
       messageDiv.style.width = "fit-content";
-      messageDiv.style.backgroundColor = "rgb(245 245 245 / 36%)";
       messageDiv.style.border = "1px solid #ddd";
       messageDiv.style.marginBottom = "10px";
       messageDiv.classList.add('message', sender.toLowerCase());
@@ -761,6 +768,7 @@
     function saveChatHistory() {
       const chatBox = document.getElementById('chat-box');
       const messages = chatBox.querySelectorAll('.message');
+      
       const chatHistory = [];
       messages.forEach(message => {
         if (!message.classList.contains('system')) {
