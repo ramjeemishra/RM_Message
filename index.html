@@ -283,17 +283,23 @@
     }
 
     .emoji-panel {
-      display: none;
-      margin-top: -200px;
-      padding: 10px;
-      background-color: white;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-      max-height: 200px;
-      overflow-y: auto;
+    display: none;
+    margin-top: -196px;
+    width: 500px;
+    position: fixed;
+    padding: 10px;
+    background-color: #302e2ec7;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    max-height: 200px;
+    overflow-y: auto;
     }
-
+@media (max-width:1000px) {
+  .emoji-panel{
+    width:55dvw;
+  }
+}
     .emoji-container {
       display: flex;
       flex-wrap: wrap;
@@ -844,22 +850,22 @@
 
 
     // script.js
-    document.getElementById('toggleEmojiPanel').addEventListener('click', function () {
-      var elements = document.querySelectorAll('.chats');
-      var elementss = document.querySelectorAll('.containerr');
-      var elementsss = document.querySelectorAll('.user-input');
-      elements.forEach(function (element) {
-        element.style.height = "50dvh";
-      });
+    // document.getElementById('toggleEmojiPanel').addEventListener('click', function () {
+    //   var elements = document.querySelectorAll('.chats');
+    //   var elementss = document.querySelectorAll('.containerr');
+    //   var elementsss = document.querySelectorAll('.user-input');
+    //   // elements.forEach(function (element) {
+    //   //   element.style.height = "50dvh";
+    //   // });
 
-      elementss.forEach(function (element) {
-        element.style.marginTop = "36dvh"; // Corrected the property name
-      });
+    //   // elementss.forEach(function (element) {
+    //   //   element.style.marginTop = "36dvh"; // Corrected the property name
+    //   // });
 
-      elementsss.forEach(function (element) {
-        element.style.marginTop = "-36dvh"; // Corrected the property name
-      });
-    });
+    //   // elementsss.forEach(function (element) {
+    //   //   element.style.marginTop = "-36dvh"; // Corrected the property name
+    //   // });
+    // });
 
 
 
