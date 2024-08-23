@@ -325,6 +325,9 @@
       width: 100%;
       border-radius: 50px 0 0 50px;
     }
+
+
+    
   </style>
 </head>
 
@@ -343,7 +346,7 @@
             class="text">MORE</span><span>HIDE</span></button></div>
 
       <div class="buttons" style="display: none;" id="additionalButtons">
-        <button id="button2" style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">TS
+        <button id="button2" class="rotate-button" style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">TS
           AI</button>
         <button id="button1">CHAT box</button>
         <button type="button" id="clearChatBtn" class="Clear">Clear chat</button>
@@ -527,10 +530,12 @@
             You are chatting with our ai</p>
           <div id="chat-box"
             style="flex: 1; padding: 20px; height: 75dvh; overflow-y: scroll; border-bottom: 1px solid #ddd; display: flex; flex-direction: column; gap: 10px;">
+            <!-- <img id="image" width="50%" height="50%" src="" alt=""> -->
           </div>
           <div
             style="display: flex; padding: 10px; position: fixed; background-color: #f8f9fa00; border-top: 1px solid #ddd;"
             class="input_area">
+            <p id="status" class="hidden">Your image is being generated...</p>
             <span class="clearbtn"><i class="fa-solid fa-broom"></i></span>
             <input class="tsinput" id="user-input" type="text" placeholder="Type your message here..."
               style="flex: 1; padding: 10px; border: 1px solid #ccc; border-radius: 20px; margin-right: 10px; font-size: 16px; outline: none;" />
@@ -691,7 +696,7 @@
       chatBox.innerHTML = '';
     }
 
-    const API_KEY = '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';
+    const API_KEY = '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';
     const API_URL = 'https://api.groq.com/openai/v1/chat/completions';
     const systemMessage = {
       role: 'system',
