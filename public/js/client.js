@@ -320,3 +320,157 @@ document.addEventListener('DOMContentLoaded', loadImagesFromLocalStorage);
 //         alert('No image selected.');
 //     }
 // });
+
+
+
+
+
+
+
+
+
+
+
+
+
+/// code to generate images via nexus 
+// const token = "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";
+// const inputTxt = document.getElementById("user-input");
+// const button = document.getElementById("send-buttonn");
+// // const status = document.getElementById("status");
+
+// const requiredKeyword = "generate";
+
+// button.addEventListener('click', async function () {
+//     const userInput = inputTxt.value.trim();
+
+//     if (!userInput.includes(requiredKeyword)) {
+//         status.textContent = `Please include the keyword "${requiredKeyword}" in your input.`;
+//         return;
+//     }
+
+//     // status.classList.remove("hidden");
+//     // status.textContent = "Your image is being generated...";
+
+//     const response = await query(userInput);
+//     if (response) {
+//         const objectURL = URL.createObjectURL(response);
+
+//         // Create a new image element each time
+//         const img = document.createElement("img");
+//         img.src = objectURL;
+//         img.alt = "Generated image";
+//         img.style.width = "200px";  // Set the image size
+//         img.style.height = "200px"; // Maintain aspect ratio
+
+//         // Append the new image to the chat box
+//         document.getElementById("chat-box").appendChild(img);
+
+//         status.textContent = "Image generated successfully!";
+//     }
+// });
+
+// async function query(input) {
+//     try {
+//         const response = await fetch(
+//             "https://api-inference.huggingface.co/models/XLabs-AI/flux-RealismLora",
+//             {
+//                 headers: { Authorization: `Bearer ${token}` },
+//                 method: "POST",
+//                 body: JSON.stringify({ "inputs": input }),
+//             }
+//         );
+
+//         if (!response.ok) {
+//             const errorMessage = await response.text();
+//             throw new Error(`Error ${response.status}: ${errorMessage}`);
+//         }
+
+//         const result = await response.blob();
+//         return result;
+//     } catch (error) {
+//         console.error("Error occurred:", error.message);
+//         status.textContent = "Failed to generate image. Please try again.";
+//     }
+// }
+
+
+
+
+
+
+const token = "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";
+const inputTxt = document.getElementById("user-input");
+const button = document.getElementById("send-buttonn");
+const chatBox = document.getElementById("chat-box");
+
+const requiredKeyword = "generate";
+
+button.addEventListener('click', async function () {
+    const userInput = inputTxt.value.trim();
+
+    // Clear any existing error messages
+    clearErrorMessages();
+
+    if (!userInput.includes(requiredKeyword)) {
+        displayErrorMessage(`Please include the keyword "${requiredKeyword}" in your input.`);
+        return;
+    }
+
+    const response = await query(userInput);
+    if (response) {
+        const objectURL = URL.createObjectURL(response);
+
+        // Create a new image element each time
+        const img = document.createElement("img");
+        img.src = objectURL;
+        img.alt = "Generated image";
+        img.style.width = "200px";  // Set the image size
+        img.style.height = "200px"; // Maintain aspect ratio
+
+        // Append the new image to the chat box
+        chatBox.appendChild(img);
+    }
+});
+
+async function query(input) {
+    try {
+        const response = await fetch(
+            "https://api-inference.huggingface.co/models/XLabs-AI/flux-RealismLora",
+            {
+                headers: { Authorization: `Bearer ${token}` },
+                method: "POST",
+                body: JSON.stringify({ "inputs": input }),
+            }
+        );
+
+        if (!response.ok) {
+            const errorMessage = await response.text();
+            throw new Error(`Error ${response.status}: ${errorMessage}`);
+        }
+
+        const result = await response.blob();
+        return result;
+    } catch (error) {
+        console.error("Error occurred:", error.message);
+        displayErrorMessage("Failed to generate image. Please try again.");
+    }
+}
+
+function displayErrorMessage(message) {
+    const errorMsg = document.createElement("p");
+    errorMsg.className = "error-message";
+    errorMsg.textContent = message;
+    errorMsg.style.color = 'red'; // Style the error message
+
+    // Append the error message to the chat box
+    chatBox.appendChild(errorMsg);
+}
+
+function clearErrorMessages() {
+    // Remove all elements with the class "error-message"
+    const existingErrorMsgs = chatBox.getElementsByClassName("error-message");
+    while (existingErrorMsgs.length > 0) {
+        existingErrorMsgs[0].remove();
+    }
+}

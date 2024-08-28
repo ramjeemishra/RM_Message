@@ -696,11 +696,14 @@
       chatBox.innerHTML = '';
     }
 
-    const API_KEY = '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';
+    const API_KEY = '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';
     const API_URL = 'https://api.groq.com/openai/v1/chat/completions';
     const systemMessage = {
       role: 'system',
-      content: 'Your name is Nexus. If anyone asks who built you or who your owner is, tell them it is Ramjee. Otherwise, if user ask anything about love or emotion then response'
+      content: `'Your name is Nexus. If anyone asks who built you or who your owner is, tell them it is Ramjee. Otherwise, if user ask anything about love or emotion then response'
+      you have image generating capability but you can generate image when "generate" key word is used,
+      when user use "generate" key word just say something like generating your thoughts, it can take few seconds to create
+      `
     };
 
     async function sendMessage() {
