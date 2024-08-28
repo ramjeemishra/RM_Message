@@ -412,24 +412,34 @@ button.addEventListener('click', async function () {
     // Clear any existing error messages
     clearErrorMessages();
 
+    // Check if the input contains the required keyword
     if (!userInput.includes(requiredKeyword)) {
-        displayErrorMessage(`Please include the keyword "${requiredKeyword}" in your input.`);
-        return;
+        return; // Exit if the required keyword is not included
     }
 
-    const response = await query(userInput);
-    if (response) {
-        const objectURL = URL.createObjectURL(response);
+    // Display a status message (if needed)
+    displayStatusMessage("Your image is being generated...");
 
-        // Create a new image element each time
-        const img = document.createElement("img");
-        img.src = objectURL;
-        img.alt = "Generated image";
-        img.style.width = "200px";  // Set the image size
-        img.style.height = "200px"; // Maintain aspect ratio
+    try {
+        const response = await query(userInput);
+        if (response) {
+            const objectURL = URL.createObjectURL(response);
 
-        // Append the new image to the chat box
-        chatBox.appendChild(img);
+            // Create a new image element each time
+            const img = document.createElement("img");
+            img.src = objectURL;
+            img.alt = "Generated image";
+            img.style.width = "200px";  // Set the image size
+            img.style.height = "200px"; // Maintain aspect ratio
+
+            // Append the new image to the chat box
+            chatBox.appendChild(img);
+
+            // Display a success message
+            displayStatusMessage("Image generated successfully!", 'green');
+        }
+    } catch (error) {
+        displayErrorMessage("Failed to generate image. Please try again.");
     }
 });
 
@@ -453,7 +463,7 @@ async function query(input) {
         return result;
     } catch (error) {
         console.error("Error occurred:", error.message);
-        displayErrorMessage("Failed to generate image. Please try again.");
+        throw error; // Rethrow the error to be caught in the button click handler
     }
 }
 
@@ -465,6 +475,16 @@ function displayErrorMessage(message) {
 
     // Append the error message to the chat box
     chatBox.appendChild(errorMsg);
+}
+
+function displayStatusMessage(message, color = 'black') {
+    const statusMsg = document.createElement("p");
+    statusMsg.className = "status-message";
+    statusMsg.textContent = message;
+    statusMsg.style.color = color; // Set the color of the status message
+
+    // Append the status message to the chat box
+    chatBox.appendChild(statusMsg);
 }
 
 function clearErrorMessages() {
