@@ -409,16 +409,12 @@ const requiredKeyword = "generate";
 button.addEventListener('click', async function () {
     const userInput = inputTxt.value.trim();
 
-    // Clear any existing error messages
     clearErrorMessages();
 
-    // Check if the input contains the required keyword
     if (!userInput.includes(requiredKeyword)) {
-        return; // Exit if the required keyword is not included
+        return;
     }
-
-    // Display a status message (if needed)
-    displayStatusMessage("Your image is being generated...");
+    displayStatusMessage("Your image is being generated...(it may take some time)");
 
     try {
         const response = await query(userInput);
@@ -429,14 +425,13 @@ button.addEventListener('click', async function () {
             const img = document.createElement("img");
             img.src = objectURL;
             img.alt = "Generated image";
-            img.style.width = "200px";  // Set the image size
-            img.style.height = "200px"; // Maintain aspect ratio
+            img.style.width = "200px";  
+            img.style.height = "200px"; 
+            img.style.borderRadius = "5px";
+            img.style.boxShadow = "0 6px 24px rgb(0 0 0)"
 
-            // Append the new image to the chat box
+
             chatBox.appendChild(img);
-
-            // Display a success message
-            displayStatusMessage("Image generated successfully!", 'green');
         }
     } catch (error) {
         displayErrorMessage("Failed to generate image. Please try again.");
