@@ -357,7 +357,7 @@
                 <ul class="feature-list">
                     <li>📊 <strong>Improved Performance:</strong> Faster load times and optimized AI processing for quicker responses.</li>
                     <li>🔧 <strong>Enhanced Customization:</strong> More options to personalize your chat interface.</li>
-                    <li>🎨 <strong>New Themes:</strong> Added light and dark themes to suit user preferences.</li>
+                    <li><strong>History:</strong> Now whatever you create is stored.</li>
                 </ul>
                 <ul class="improvement-list">
                     <li>✨ <strong>Simplified Interface:</strong> Cleaner, more intuitive layout for a better user experience.</li>
@@ -367,6 +367,8 @@
           </ul>
       </div>
   </div>
+
+</div>
     <div id="settingsOverlay">
       <div id="settingsContent">
           <div id="appVersion">
@@ -374,6 +376,12 @@
           </div>
           <button id="closeButton" style="display: block;">X</button>
           <button id="muteButton"style="display: block;">Mute</button>
+          <button id="show-history-button">Show History</button>
+          <div id="history-overlay" style="display: none;">
+              <button id="close-history-button">Close</button>
+              <div id="history-container"></div>
+          </div>
+          
           <button id="newupdate"style="display: block;">what's new this update</button>
 
       </div>

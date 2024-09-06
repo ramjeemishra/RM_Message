@@ -399,10 +399,117 @@ document.addEventListener('DOMContentLoaded', loadImagesFromLocalStorage);
 
 
 
+// const token = "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";
+// const inputTxt = document.getElementById("user-input");
+// const button = document.getElementById("send-buttonn");
+// const chatBox = document.getElementById("chat-box");
+
+// const requiredKeyword = "generate";
+
+// button.addEventListener('click', async function () {
+//     const userInput = inputTxt.value.trim();
+
+//     clearErrorMessages();
+
+//     if (!userInput.includes(requiredKeyword)) {
+//         return;
+//     }
+//     displayStatusMessage("Your image is being generated...(it may take some time)");
+
+//     try {
+//         const response = await query(userInput);
+//         if (response) {
+//             const objectURL = URL.createObjectURL(response);
+
+//             // Create a new image element each time
+//             const img = document.createElement("img");
+//             img.src = objectURL;
+//             img.alt = "Generated image";
+//             img.style.width = "200px";  
+//             img.style.height = "200px"; 
+//             img.style.borderRadius = "5px";
+//             img.style.boxShadow = "0 6px 24px rgb(0 0 0)"
+
+
+//             chatBox.appendChild(img);
+//         }
+//     } catch (error) {
+//         displayErrorMessage("Failed to generate image. Please try again.");
+//     }
+// });
+
+// async function query(input) {
+//     try {
+//         const response = await fetch(
+//             "https://api-inference.huggingface.co/models/XLabs-AI/flux-RealismLora",
+//             {
+//                 headers: { Authorization: `Bearer ${token}` },
+//                 method: "POST",
+//                 body: JSON.stringify({ "inputs": input }),
+//             }
+//         );
+
+//         if (!response.ok) {
+//             const errorMessage = await response.text();
+//             throw new Error(`Error ${response.status}: ${errorMessage}`);
+//         }
+
+//         const result = await response.blob();
+//         return result;
+//     } catch (error) {
+//         console.error("Error occurred:", error.message);
+//         throw error; // Rethrow the error to be caught in the button click handler
+//     }
+// }
+
+// function displayErrorMessage(message) {
+//     const errorMsg = document.createElement("p");
+//     errorMsg.className = "error-message";
+//     errorMsg.textContent = message;
+//     errorMsg.style.color = 'red'; // Style the error message
+
+//     // Append the error message to the chat box
+//     chatBox.appendChild(errorMsg);
+// }
+
+// function displayStatusMessage(message, color = 'black') {
+//     const statusMsg = document.createElement("p");
+//     statusMsg.className = "status-message";
+//     statusMsg.textContent = message;
+//     statusMsg.style.color = color; // Set the color of the status message
+
+//     // Append the status message to the chat box
+//     chatBox.appendChild(statusMsg);
+// }
+
+// function clearErrorMessages() {
+//     // Remove all elements with the class "error-message"
+//     const existingErrorMsgs = chatBox.getElementsByClassName("error-message");
+//     while (existingErrorMsgs.length > 0) {
+//         existingErrorMsgs[0].remove();
+//     }
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
 const token = "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";
 const inputTxt = document.getElementById("user-input");
 const button = document.getElementById("send-buttonn");
 const chatBox = document.getElementById("chat-box");
+const showHistoryButton = document.getElementById('show-history-button');
+const historyOverlay = document.getElementById('history-overlay');
+const closeHistoryButton = document.getElementById('close-history-button');
+const historyContainer = document.getElementById('history-container');
 
 const requiredKeyword = "generate";
 
@@ -421,17 +528,19 @@ button.addEventListener('click', async function () {
         if (response) {
             const objectURL = URL.createObjectURL(response);
 
-            // Create a new image element each time
+            // Create a new image element
             const img = document.createElement("img");
             img.src = objectURL;
             img.alt = "Generated image";
-            img.style.width = "200px";  
-            img.style.height = "200px"; 
+            img.style.width = "200px";
+            img.style.height = "200px";
             img.style.borderRadius = "5px";
-            img.style.boxShadow = "0 6px 24px rgb(0 0 0)"
-
+            img.style.boxShadow = "0 6px 24px rgb(0 0 0)";
 
             chatBox.appendChild(img);
+
+            // Store image in local storage
+            saveImageToLocalStorage(objectURL);
         }
     } catch (error) {
         displayErrorMessage("Failed to generate image. Please try again.");
@@ -489,3 +598,47 @@ function clearErrorMessages() {
         existingErrorMsgs[0].remove();
     }
 }
+
+function saveImageToLocalStorage(imageURL) {
+    let imageHistory = JSON.parse(localStorage.getItem('imageHistory')) || [];
+    imageHistory.push(imageURL);
+    localStorage.setItem('imageHistory', JSON.stringify(imageHistory));
+}
+
+function loadImageHistory() {
+    historyContainer.innerHTML = '';
+    const imageHistory = JSON.parse(localStorage.getItem('imageHistory')) || [];
+    imageHistory.forEach(imageURL => {
+        const img = document.createElement('img');
+        img.src = imageURL;
+        img.alt = 'History image';
+        img.style.width = '200px';
+        img.style.height = '200px';
+
+        const removeButton = document.createElement('button');
+        removeButton.textContent = 'Remove';
+        removeButton.addEventListener('click', function () {
+            removeImageFromLocalStorage(imageURL);
+            historyContainer.removeChild(img);
+            historyContainer.removeChild(removeButton);
+        });
+
+        historyContainer.appendChild(img);
+        historyContainer.appendChild(removeButton);
+    });
+}
+
+function removeImageFromLocalStorage(imageURL) {
+    let imageHistory = JSON.parse(localStorage.getItem('imageHistory')) || [];
+    imageHistory = imageHistory.filter(url => url !== imageURL);
+    localStorage.setItem('imageHistory', JSON.stringify(imageHistory));
+}
+
+showHistoryButton.addEventListener('click', function () {
+    historyOverlay.style.display = 'flex';
+    loadImageHistory();
+});
+
+closeHistoryButton.addEventListener('click', function () {
+    historyOverlay.style.display = 'none';
+});
