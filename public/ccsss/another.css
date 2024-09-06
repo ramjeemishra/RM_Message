@@ -257,6 +257,7 @@ label img{
   justify-content: center;
   text-align: center;
   z-index: 3;
+  overflow-y: scroll;
 }
 #udatescloseButton{
   margin-top: -87dvh;
@@ -320,6 +321,13 @@ label img{
 }
 .updates-content{
   margin-left: -92px;
+  /* margin-top: 143%; */
+}
+@media (max-width:600px) {
+  .updates-content{
+    margin-left: -92px;
+    margin-top: 143%;
+  }
 }
 
 .improved-update {
@@ -376,8 +384,12 @@ label img{
 }
 
 .generate-images-li .demo-example {
-  display: block; /* Ensure the example is shown */
-  margin-top: 15px;
-  font-size: 14px;
-  color: #a100e69e;
-} 
+    display: block;
+    margin-top: 8px;
+    font-size: 14px;
+    color: #00e676; /* Match the neon green */
+    background-color: rgba(255, 255, 255, 0.1); 
+    padding: 4px 8px;
+    border-radius: 4px;
+    box-shadow: 0px 0px 5px rgba(0, 230, 118, 0.3); 
+}
