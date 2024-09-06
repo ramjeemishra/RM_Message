@@ -336,13 +336,45 @@
 
 
   <main id="content">
+    <div class="updates" id="updates">
+      <button id="udatescloseButton">Home</button>
+      <div class="updates-content">
+          <h2 class="updates-heading">🚀 Latest Features and Updates</h2>
+          <ul class="updates-list">
+              <li>
+                  <strong>AI Assistant Nexus:</strong> Chat with super-fast responses, offering seamless interactions.
+              </li>
+              <li class="generate-images-li">
+                <strong>Generate Images:</strong> Use the keyword "<code>generate</code>" to create stunning images instantly in chat.
+                <span class="demo-example">Example: <code>'generate a cute puppy'</code></span> <!-- Example text displayed -->
+            </li>
+              <li>
+                  <strong>Enhanced Chat Features:</strong> Experience a powerful AI chatbot for efficient and smooth conversations.
+              </li>
+              <li class="improved-update">
+                <strong>Improved Features & User Experience:</strong> 
+                <p>This update, we have improved more features and enhanced the user experience to make it easier to use.</p>
+                <ul class="feature-list">
+                    <li>📊 <strong>Improved Performance:</strong> Faster load times and optimized AI processing for quicker responses.</li>
+                    <li>🔧 <strong>Enhanced Customization:</strong> More options to personalize your chat interface.</li>
+                    <li>🎨 <strong>New Themes:</strong> Added light and dark themes to suit user preferences.</li>
+                </ul>
+                <ul class="improvement-list">
+                    <li>✨ <strong>Simplified Interface:</strong> Cleaner, more intuitive layout for a better user experience.</li>
+                    <li>🚀 <strong>Better Navigation:</strong> Easier access to key features with fewer clicks.</li>
+                </ul>
+            </li>
+          </ul>
+      </div>
+  </div>
     <div id="settingsOverlay">
       <div id="settingsContent">
           <div id="appVersion">
-              Version 1.0.0
+              Version 1.0.1
           </div>
-          <button id="closeButton">Close</button>
-          <button id="muteButton">Mute</button>
+          <button id="closeButton" style="display: block;">X</button>
+          <button id="muteButton"style="display: block;">Mute</button>
+          <button id="newupdate"style="display: block;">what's new this update</button>
 
       </div>
   </div>
@@ -570,6 +602,21 @@ document.getElementById('settingsButton').addEventListener('click', function() {
 document.getElementById('closeButton').addEventListener('click', function() {
     document.getElementById('settingsOverlay').style.display = 'none';
 });
+
+
+
+//updates
+document.getElementById('newupdate').addEventListener('click', function() {
+    document.getElementById('updates').style.display = 'flex';
+    document.getElementById('settingsOverlay').style.display = 'none';
+});
+
+document.getElementById('udatescloseButton').addEventListener('click', function() {
+    document.getElementById('updates').style.display = 'none';
+});
+
+
+
 
 
 

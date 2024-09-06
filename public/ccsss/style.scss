@@ -124,7 +124,7 @@ main {
     background-color: black;
     padding: 20px;
     height: 93%;
-    border: 3px solid cyan;
+    /* border: 3px solid cyan; */
     @include flexing(row, flex-start, stretch);
 
 

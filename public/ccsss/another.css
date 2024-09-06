@@ -156,15 +156,17 @@ label img{
 
 
 
+
+
 /* setting box*/
-/* Dark theme for the entire content area */
 #content {
   background-color: #121212;
   color: #E0E0E0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  align-items: center;
+  justify-content: center;
 }
 
-/* Overlay with a subtle shadow effect */
 #settingsOverlay {
   display: none;
   position: fixed;
@@ -177,8 +179,6 @@ label img{
   justify-content: center;
   align-items: center;
 }
-
-/* Settings content with dark theme styling */
 #settingsContent {
   background-color: #1E1E1E;
   padding: 25px;
@@ -197,20 +197,22 @@ label img{
 
 /* Close button with modern design */
 #closeButton {
-  margin-top: 20px;
+  margin-left: 80%;
+  margin-top: -35px;
   padding: 12px 24px;
   font-size: 16px;
-  background-color: #6200EE;
+  background-color: #6300ee00;
   color: white;
   border: none;
   border-radius: 6px;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
-
 #closeButton:hover {
-  background-color: #3700B3;
+  background-color: #3600b300;
   transform: scale(1.05);
+  color: rgba(255, 255, 255, 0.599);
+  transition: 0.5 step-end;
 }
 
 #closeButton:active {
@@ -231,3 +233,151 @@ label img{
 #muteButton.muted {
   background-color: #9E9E9E;
 }
+#newupdate{
+  margin-top: 25%;
+  background-color: #1E1E1E;
+  padding: 10px 5px 10px 5px;
+  color: rgba(245, 245, 245, 0.195);
+  font-weight: 700;
+  border-radius: 15px;
+  transition: background-color 0.3s ease;
+  &:hover{
+    color: rgba(245, 245, 245, 0.556);
+    background-color: #3c4043;
+    cursor: pointer;
+  }
+}
+
+.updates{
+  width: 100%;
+  height: 100%;
+  display: none;
+  background: #121212;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  z-index: 3;
+}
+#udatescloseButton{
+  margin-top: -87dvh;
+  padding: 12px 24px;
+  font-size: 16px;
+  background-color: #fefdffe6;
+  color: rgb(84, 80, 80);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  align-items: self-end;
+  &:hover{
+    background-color: #fefdff45;
+    color: white;
+    transform: scale(1.05);
+  }
+}
+.updates-heading {
+  margin: 0;
+  font-size: 26px;
+  color: #000000; /* Soft Neon Green */
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  text-shadow: 0px 0px 8px rgba(255, 255, 255, 0.87), 
+               0px 0px 16px rgba(255, 255, 255, 0.682), 
+               0px 0px 24px rgba(255, 255, 255, 0.664);
+  animation: slideDown 0.8s ease-in-out;
+}
+.updates-list {
+  list-style-type: none;
+  padding-left: 0;
+  margin-top: 20px;
+}
+
+.updates-list li {
+  margin-bottom: 15px;
+  padding: 15px;
+  background-color: #333;
+  border-left: 5px solid #ff5722;
+  border-radius: 8px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.updates-list li:hover {
+  transform: scale(1.03);
+  box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.4);
+}
+
+.updates-list li strong {
+  color: #28ffea;
+}
+
+.updates-list li code {
+  background-color: #2d2d2d;
+  color: #28ff2c;
+  padding: 4px 6px;
+  border-radius: 4px;
+  font-family: 'Courier New', Courier, monospace;
+}
+.updates-content{
+  margin-left: -92px;
+}
+
+.improved-update {
+  background-color: #2a2a2a; /* Darker background for improved updates */
+  border-left: 5px solid #00bcd4; /* Cyan border to distinguish improved section */
+}
+
+.improved-update strong {
+  color: #00bcd4; /* Cyan color to match the border */
+}
+
+.feature-list, .improvement-list {
+  list-style-type: none;
+  padding-left: 0;
+  margin-top: 10px;
+}
+
+.feature-list li, .improvement-list li {
+  padding: 10px;
+  background-color: #333;
+  border-left: 4px solid #00bcd4; /* Cyan highlight */
+  border-radius: 6px;
+  margin-bottom: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  color: #e0e0e0;
+}
+
+.feature-list li:hover, .improvement-list li:hover {
+  box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.3);
+  transform: scale(1.02);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  0% {
+      opacity: 0;
+      transform: translateY(-20px);
+  }
+  100% {
+      opacity: 1;
+      transform: translateY(0);
+  }
+}
+
+@keyframes slideDown {
+  0% {
+      opacity: 0;
+      transform: translateY(-40px);
+  }
+  100% {
+      opacity: 1;
+      transform: translateY(0);
+  }
+}
+
+.generate-images-li .demo-example {
+  display: block; /* Ensure the example is shown */
+  margin-top: 15px;
+  font-size: 14px;
+  color: #a100e69e;
+} 

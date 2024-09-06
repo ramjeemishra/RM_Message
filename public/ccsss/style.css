@@ -90,9 +90,9 @@ main header i {
 }
 main div.container {
   background-color: black;
-  padding: 20px;
+  padding: 12px;
   height: 93%;
-  border: 3px solid cyan;
+  /* border: 3px solid cyan; */
   display: flex;
   flex-direction: row;
   align-items: stretch;
