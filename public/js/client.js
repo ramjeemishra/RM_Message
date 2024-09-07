@@ -501,7 +501,6 @@ document.addEventListener('DOMContentLoaded', loadImagesFromLocalStorage);
 
 
 
-
 const token = "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";
 const inputTxt = document.getElementById("user-input");
 const button = document.getElementById("send-buttonn");
@@ -510,37 +509,122 @@ const showHistoryButton = document.getElementById('show-history-button');
 const historyOverlay = document.getElementById('history-overlay');
 const closeHistoryButton = document.getElementById('close-history-button');
 const historyContainer = document.getElementById('history-container');
-
 const requiredKeyword = "generate";
+const dbName = "ImageHistoryDB";
+const dbVersion = 1;
+let db;
+
+function openDB() {
+    const request = indexedDB.open(dbName, dbVersion);
+    request.onupgradeneeded = function (event) {
+        db = event.target.result;
+        if (!db.objectStoreNames.contains('images')) {
+            const store = db.createObjectStore('images', { keyPath: 'id', autoIncrement: true });
+            store.createIndex('timestamp', 'timestamp', { unique: false });
+        }
+    };
+    request.onsuccess = function (event) {
+        db = event.target.result;
+    };
+    request.onerror = function (event) {
+        console.error("Error opening IndexedDB:", event.target.errorCode);
+    };
+}
+
+function saveImageToIndexedDB(imageDataURL) {
+    const transaction = db.transaction(['images'], 'readwrite');
+    const store = transaction.objectStore('images');
+    const imageRecord = { url: imageDataURL, timestamp: new Date().toISOString() };
+    const request = store.add(imageRecord);
+    request.onsuccess = function () {
+        console.log("Image saved to IndexedDB.");
+    };
+    request.onerror = function () {
+        console.error("Error saving image to IndexedDB.");
+    };
+}
+
+function loadImageHistoryFromIndexedDB() {
+    historyContainer.innerHTML = '';
+    const transaction = db.transaction(['images'], 'readonly');
+    const store = transaction.objectStore('images');
+    const request = store.getAll();
+    request.onsuccess = function (event) {
+        const images = event.target.result;
+        images.forEach(imageRecord => {
+            const img = document.createElement('img');
+            img.src = imageRecord.url;
+            img.alt = 'History image';
+            img.style.width = '200px';
+            img.style.height = '200px';
+
+            const timestamp = document.createElement('p');
+            timestamp.textContent = `Generated on: ${new Date(imageRecord.timestamp).toLocaleString()}`;
+            timestamp.style.fontSize = '12px';
+            timestamp.style.color = 'gray';
+
+            const removeButton = document.createElement('button');
+            removeButton.textContent = 'Remove';
+            removeButton.addEventListener('click', function () {
+                removeImageFromIndexedDB(imageRecord.id);
+                historyContainer.removeChild(img);
+                historyContainer.removeChild(timestamp);
+                historyContainer.removeChild(removeButton);
+            });
+
+            historyContainer.appendChild(img);
+            historyContainer.appendChild(timestamp);
+            historyContainer.appendChild(removeButton);
+        });
+    };
+    request.onerror = function () {
+        console.error("Error loading image history from IndexedDB.");
+    };
+}
+
+function removeImageFromIndexedDB(imageId) {
+    const transaction = db.transaction(['images'], 'readwrite');
+    const store = transaction.objectStore('images');
+    const request = store.delete(imageId);
+    request.onsuccess = function () {
+        console.log("Image removed from IndexedDB.");
+    };
+    request.onerror = function () {
+        console.error("Error removing image from IndexedDB.");
+    };
+}
+
+openDB();
+
+showHistoryButton.addEventListener('click', function () {
+    historyOverlay.style.display = 'flex';
+    loadImageHistoryFromIndexedDB();
+});
+
+closeHistoryButton.addEventListener('click', function () {
+    historyOverlay.style.display = 'none';
+});
 
 button.addEventListener('click', async function () {
     const userInput = inputTxt.value.trim();
-
     clearErrorMessages();
-
     if (!userInput.includes(requiredKeyword)) {
         return;
     }
     displayStatusMessage("Your image is being generated...(it may take some time)");
 
     try {
-        const response = await query(userInput);
-        if (response) {
-            const objectURL = URL.createObjectURL(response);
-
-            // Create a new image element
+        const imageDataURL = await query(userInput);
+        if (imageDataURL) {
             const img = document.createElement("img");
-            img.src = objectURL;
+            img.src = imageDataURL;
             img.alt = "Generated image";
             img.style.width = "200px";
             img.style.height = "200px";
             img.style.borderRadius = "5px";
             img.style.boxShadow = "0 6px 24px rgb(0 0 0)";
-
             chatBox.appendChild(img);
-
-            // Store image in local storage
-            saveImageToLocalStorage(objectURL);
+            saveImageToIndexedDB(imageDataURL);
         }
     } catch (error) {
         displayErrorMessage("Failed to generate image. Please try again.");
@@ -564,10 +648,15 @@ async function query(input) {
         }
 
         const result = await response.blob();
-        return result;
+        const reader = new FileReader();
+        return new Promise((resolve, reject) => {
+            reader.onloadend = () => resolve(reader.result);
+            reader.onerror = reject;
+            reader.readAsDataURL(result);
+        });
     } catch (error) {
         console.error("Error occurred:", error.message);
-        throw error; // Rethrow the error to be caught in the button click handler
+        throw error;
     }
 }
 
@@ -575,9 +664,7 @@ function displayErrorMessage(message) {
     const errorMsg = document.createElement("p");
     errorMsg.className = "error-message";
     errorMsg.textContent = message;
-    errorMsg.style.color = 'red'; // Style the error message
-
-    // Append the error message to the chat box
+    errorMsg.style.color = 'red';
     chatBox.appendChild(errorMsg);
 }
 
@@ -585,60 +672,13 @@ function displayStatusMessage(message, color = 'black') {
     const statusMsg = document.createElement("p");
     statusMsg.className = "status-message";
     statusMsg.textContent = message;
-    statusMsg.style.color = color; // Set the color of the status message
-
-    // Append the status message to the chat box
+    statusMsg.style.color = color;
     chatBox.appendChild(statusMsg);
 }
 
 function clearErrorMessages() {
-    // Remove all elements with the class "error-message"
     const existingErrorMsgs = chatBox.getElementsByClassName("error-message");
     while (existingErrorMsgs.length > 0) {
         existingErrorMsgs[0].remove();
     }
 }
-
-function saveImageToLocalStorage(imageURL) {
-    let imageHistory = JSON.parse(localStorage.getItem('imageHistory')) || [];
-    imageHistory.push(imageURL);
-    localStorage.setItem('imageHistory', JSON.stringify(imageHistory));
-}
-
-function loadImageHistory() {
-    historyContainer.innerHTML = '';
-    const imageHistory = JSON.parse(localStorage.getItem('imageHistory')) || [];
-    imageHistory.forEach(imageURL => {
-        const img = document.createElement('img');
-        img.src = imageURL;
-        img.alt = 'History image';
-        img.style.width = '200px';
-        img.style.height = '200px';
-
-        const removeButton = document.createElement('button');
-        removeButton.textContent = 'Remove';
-        removeButton.addEventListener('click', function () {
-            removeImageFromLocalStorage(imageURL);
-            historyContainer.removeChild(img);
-            historyContainer.removeChild(removeButton);
-        });
-
-        historyContainer.appendChild(img);
-        historyContainer.appendChild(removeButton);
-    });
-}
-
-function removeImageFromLocalStorage(imageURL) {
-    let imageHistory = JSON.parse(localStorage.getItem('imageHistory')) || [];
-    imageHistory = imageHistory.filter(url => url !== imageURL);
-    localStorage.setItem('imageHistory', JSON.stringify(imageHistory));
-}
-
-showHistoryButton.addEventListener('click', function () {
-    historyOverlay.style.display = 'flex';
-    loadImageHistory();
-});
-
-closeHistoryButton.addEventListener('click', function () {
-    historyOverlay.style.display = 'none';
-});
