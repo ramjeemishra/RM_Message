@@ -480,3 +480,68 @@ label img{
 #show-history-button:focus {
   box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
 }
+
+
+
+
+
+
+
+
+#game-container {
+  width: 100px;
+  height: 100px;
+  margin: 50px auto;
+  padding: 5px;
+  border: 2px solid #444;
+  border-radius: 10px;
+  background-color: #333;
+  position: relative;
+}
+
+h1 {
+  font-size: 1rem;
+  margin: 0;
+  padding: 0;
+  color: #fff;
+}
+
+#choices {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 50%;
+  margin-bottom: 5px;
+}
+
+button.choice {
+  font-size: 1.2rem;
+  width: 24px;
+  height: 24px;
+  background-color: #444;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button.choice:hover {
+  background-color: #666;
+}
+
+#result {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#ai-choice {
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+#game-result {
+  font-size: 0.8rem;
+  margin-top: 2px;
+}
