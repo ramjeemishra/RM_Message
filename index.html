@@ -901,15 +901,28 @@ function createAndShowGameDiv() {
   // Set up the new game div
   gameDiv.style.width = '150px';
   gameDiv.style.height = '200px'; // Adjusted height for better layout
-  gameDiv.style.padding = '5px';
+  gameDiv.style.padding = '10px';
   gameDiv.style.border = '2px solid #444';
   gameDiv.style.borderRadius = '10px';
   gameDiv.style.backgroundColor = '#222';
+  gameDiv.style.position = 'relative'; // Required for absolute positioning of the close button
   gameDiv.style.display = 'block'; // Make it visible
-  gameDiv.style.position = 'sticky';
-  gameDiv.style.top = '0';
-  gameDiv.style.zIndex = '1000'
   gameDiv.classList.add('game-container');
+
+  // Add the close button
+  const closeButton = document.createElement('button');
+  closeButton.textContent = '✖️'; // Close button text
+  closeButton.style.position = 'absolute';
+  closeButton.style.top = '5px';
+  closeButton.style.right = '5px';
+  closeButton.style.border = 'none';
+  closeButton.style.background = 'none';
+  closeButton.style.color = 'white';
+  closeButton.style.fontSize = '16px';
+  closeButton.style.cursor = 'pointer';
+  closeButton.addEventListener('click', () => {
+    gameDiv.remove(); // Remove the game div from the chat box
+  });
 
   // Add the game content
   gameDiv.innerHTML = `
@@ -919,17 +932,18 @@ function createAndShowGameDiv() {
       <button class="choice" data-choice="paper" style="font-size: 16px;">📄</button>
       <button class="choice" data-choice="scissors" style="font-size: 16px;">✂️</button>
     </div>
-    <div id="result" style="text-align: center; display:none; color: white;">
+    <div id="result" style="text-align: center; color: white; display:none;">
       <p id="ai-choice"></p>
       <p id="game-result"></p>
     </div>
-    <div id="score" style="text-align: center; display:none; color: white;">
-      <p><span id="wins"></span></p>
-      <p><span id="ties"></span></p>
-      <p><span id="losses"></span></p>
+    <div id="score" style="text-align: center; color: white; display: none;">
+      <p>Wins: <span id="wins">0</span></p>
+      <p>Ties: <span id="ties">0</span></p>
+      <p>Losses: <span id="losses">0</span></p>
     </div>
   `;
 
+  gameDiv.appendChild(closeButton); // Add the close button to the game div
   chatBox.appendChild(gameDiv);
   chatBox.scrollTop = chatBox.scrollHeight;
 
@@ -940,6 +954,7 @@ function createAndShowGameDiv() {
     });
   });
 }
+
 
 function playGame(userChoice) {
   if (round >= 3) {
