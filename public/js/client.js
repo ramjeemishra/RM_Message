@@ -29,7 +29,6 @@ function loadStoredMessages() {
 username = localStorage.getItem('username');
 
 if (!username) {
-    // Prompt for username if not stored
     do {
         username = prompt("Enter your name: ");
     } while (!username);
@@ -97,7 +96,6 @@ msg_send.addEventListener('click', () => {
         socket.emit('message', data);
         user_msg.value = '';
 
-        // Store the message in Local Storage
         const storedMessages = JSON.parse(localStorage.getItem('chatMessages')) || [];
         storedMessages.push(data);
         localStorage.setItem('chatMessages', JSON.stringify(storedMessages));
@@ -110,27 +108,18 @@ function appendMessage(data, status) {
 
     // Create a paragraph element for the message text
     const messageElement = document.createElement('p');
-    messageElement.textContent = data.msg;  // Use textContent to prevent XSS attacks
-
-    // Append the message text to the message div
+    messageElement.textContent = data.msg;
     div.appendChild(messageElement);
-
-    // Create a span element for the username
     const userElement = document.createElement('span');
     userElement.style.color = 'black';
     userElement.style.fontSize = '9px';
     userElement.textContent = data.user;
 
-    // Append the username after the message text
     div.appendChild(userElement);
-
-    // Append the message div to the chat container
     chats.appendChild(div);
 
-    // Scroll to the bottom of the chat container
     chats.scrollTop = chats.scrollHeight;
 
-    // Play notification sound for incoming messages
     if (status === 'incoming' && notificationSound) {
         notificationSound.play().catch(error => {
             console.error("Notification sound play failed:", error);
@@ -141,8 +130,7 @@ function appendMessage(data, status) {
 
 socket.on('message', (data) => {
     appendMessage(data, 'incoming');
-    
-    // Store the message in Local Storage
+    // Store's message in Local Storage
     const storedMessages = JSON.parse(localStorage.getItem('chatMessages')) || [];
     storedMessages.push(data);
     localStorage.setItem('chatMessages', JSON.stringify(storedMessages));
@@ -152,8 +140,6 @@ const clearChatBtn = document.getElementById('clearChatBtn');
 clearChatBtn.addEventListener('click', () => {
     // Clear chat messages from the chat display locally
     chats.innerHTML = '';
-
-    // Clear chat messages from Local Storage locally
     localStorage.removeItem('chatMessages');
 });
 
@@ -167,14 +153,8 @@ function playSound() {
 clearChatBtn.addEventListener('click', () => {
     // Clear chat messages from the chat display locally
     chats.innerHTML = '';
-
-    // Clear chat messages from Local Storage locally
     localStorage.removeItem('chatMessages');
-
-    // Clear stored images data from Local Storage
     localStorage.removeItem('storedImages');
-
-    // Optionally, you may also want to clear displayed images from the UI
     const imageMessages = document.querySelectorAll('.image-message');
     imageMessages.forEach(message => message.remove());
 });
@@ -188,7 +168,6 @@ function displayImage(username, imageUrl) {
     const messageContainer = document.createElement('div');
     messageContainer.classList.add('message', 'image-message');
 
-    // Create a span element for the sender's name
     const senderElement = document.createElement('span');
     senderElement.style.color = 'black';
     senderElement.style.fontWeight = 'bold';
@@ -196,12 +175,11 @@ function displayImage(username, imageUrl) {
     senderElement.textContent = username;
     messageContainer.appendChild(senderElement);
 
-    // Create an img element for the shared image
     const imageElement = document.createElement('img');
     imageElement.src = imageUrl;
     imageElement.alt = 'Shared Image';
-    imageElement.style.maxWidth = '100%'; // Style the image
-    imageElement.style.borderRadius = '8px'; // Rounded corners
+    imageElement.style.maxWidth = '100%'; 
+    imageElement.style.borderRadius = '8px'; 
     
     messageContainer.appendChild(imageElement);
     messagesDiv.appendChild(messageContainer);

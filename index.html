@@ -650,27 +650,21 @@ document.addEventListener("DOMContentLoaded", function () {
     let isMuted = localStorage.getItem("isMuted") === "true";
     
     function updateMuteState(mute) {
-        // Mute/unmute audio and video elements
         audioElements.forEach(element => element.muted = mute);
 
-        // Handle text-to-speech
         if (window.speechSynthesis) {
             if (mute) {
-                window.speechSynthesis.cancel(); // Stop any ongoing TTS
+                window.speechSynthesis.cancel(); 
             } else {
-                // Optional: Reinitialize TTS settings if needed
             }
         }
 
-        // Update button text and class
         muteButton.textContent = mute ? "Unmute" : "Mute";
         muteButton.classList.toggle("muted", mute);
     }
 
-    // Apply the saved mute state
     updateMuteState(isMuted);
 
-    // Add event listener to mute button
     muteButton.addEventListener("click", function () {
         isMuted = !isMuted;
         updateMuteState(isMuted);
@@ -702,13 +696,11 @@ document.addEventListener("DOMContentLoaded", function () {
       const messages = document.querySelector('.chats');
 
       input.addEventListener('focus', () => {
-        // Ensure input area is visible when focused
         setTimeout(() => {
           input.scrollIntoView({ behavior: 'smooth', block: 'end' });
         }, 300);
       });
 
-      // Adjust the chat container height on resize
       window.addEventListener('resize', () => {
         const vh = window.innerHeight * 0.01;
         document.documentElement.style.setProperty('--vh', `${vh}px`);
@@ -755,10 +747,8 @@ document.addEventListener("DOMContentLoaded", function () {
         unindow.style.display = "none";
       } else {
         unindow.style.display = "block";
-        // Use a timeout to ensure the event listener is added after the button is clicked
         setTimeout(function () {
           document.addEventListener('click', function handler(event) {
-            // Check if the click is outside the buttons div
             if (!unindow.contains(event.target) && event.target.className !== 'button-57') {
               unindow.style.display = "none";
               clickCounter++;
@@ -900,18 +890,17 @@ function createAndShowGameDiv() {
 
   // Set up the new game div
   gameDiv.style.width = '150px';
-  gameDiv.style.height = '200px'; // Adjusted height for better layout
+  gameDiv.style.height = '200px'; 
   gameDiv.style.padding = '10px';
   gameDiv.style.border = '2px solid #444';
   gameDiv.style.borderRadius = '10px';
   gameDiv.style.backgroundColor = '#222';
-  gameDiv.style.position = 'relative'; // Required for absolute positioning of the close button
-  gameDiv.style.display = 'block'; // Make it visible
+  gameDiv.style.position = 'relative'; 
   gameDiv.classList.add('game-container');
 
   // Add the close button
   const closeButton = document.createElement('button');
-  closeButton.textContent = '✖️'; // Close button text
+  closeButton.textContent = '✖️'; 
   closeButton.style.position = 'absolute';
   closeButton.style.top = '5px';
   closeButton.style.right = '5px';
@@ -921,7 +910,7 @@ function createAndShowGameDiv() {
   closeButton.style.fontSize = '16px';
   closeButton.style.cursor = 'pointer';
   closeButton.addEventListener('click', () => {
-    gameDiv.remove(); // Remove the game div from the chat box
+    gameDiv.remove(); 
   });
 
   // Add the game content
@@ -943,11 +932,11 @@ function createAndShowGameDiv() {
     </div>
   `;
 
-  gameDiv.appendChild(closeButton); // Add the close button to the game div
+  gameDiv.appendChild(closeButton);
   chatBox.appendChild(gameDiv);
   chatBox.scrollTop = chatBox.scrollHeight;
 
-  // Add event listeners for the game choices
+
   gameDiv.querySelectorAll('.choice').forEach(button => {
     button.addEventListener('click', function() {
       playGame(this.dataset.choice);
@@ -966,7 +955,7 @@ function playGame(userChoice) {
   const aiChoice = choices[Math.floor(Math.random() * choices.length)];
   const result = getGameResult(userChoice, aiChoice);
 
-  // List of "thinking" messages
+
   const thinkingMessages = [
     "Let me think...",
     "Hmm, let me consider my options...",
@@ -975,22 +964,19 @@ function playGame(userChoice) {
     "Thinking... please wait..."
   ];
 
-  // Select a random "thinking" message
+
   const thinkingMessage = thinkingMessages[Math.floor(Math.random() * thinkingMessages.length)];
 
-  // Add "thinking" message to chat
+
   addMessageToChat('Nexus', thinkingMessage);
 
-  // Make AI "speak" the thinking message
+
   speakMessage(thinkingMessage);
 
-  // Display AI choice and result after a short delay
   setTimeout(() => {
-    // Display AI choice
     document.getElementById('ai-choice').textContent = getEmoji(aiChoice);
     document.getElementById('game-result').textContent = result;
 
-    // Update scores
     if (result.includes('win')) {
       scores.wins++;
     } else if (result.includes('tie')) {
@@ -999,17 +985,15 @@ function playGame(userChoice) {
       scores.losses++;
     }
 
-    // Update score display
+
     document.getElementById('wins').textContent = scores.wins;
     document.getElementById('ties').textContent = scores.ties;
     document.getElementById('losses').textContent = scores.losses;
 
-    // Make AI "speak" its choice and result
     const aiMessage = `I chose ${aiChoice}. ${result}`;
     addMessageToChat('Nexus', aiMessage);
     speakMessage(aiMessage);
 
-    // Increment round count
     round++;
   }, 4000);
 }
@@ -1094,24 +1078,21 @@ function addMessageToChat(sender, message, skipSave = false) {
   const chatBox = document.getElementById('chat-box');
   const messageDiv = document.createElement('div');
 
-  // Create a span for the sender
+  //  a span for the sender
   const senderSpan = document.createElement('span');
   senderSpan.textContent = `${sender}: `;
   senderSpan.classList.add('sender', sender.toLowerCase());
 
-  // Create a span for the message content
   const messageSpan = document.createElement('span');
   messageSpan.textContent = message;
   messageSpan.classList.add('message-content');
   messageSpan.style.whiteSpace = "pre-line";
 
-  // Append both spans to the message div
   messageDiv.appendChild(senderSpan);
   messageDiv.appendChild(messageSpan);
   messageDiv.style.borderRadius = "15px";
   messageDiv.style.padding = "6px";
   messageDiv.style.fontWeight = "bold"
-  // messageDiv.style.color = "aliceblue"
   messageDiv.style.width = "fit-content";
   messageDiv.style.border = "1px solid #ddd";
   messageDiv.style.marginBottom = "10px";
@@ -1147,7 +1128,7 @@ function loadChatHistory() {
     addSystemMessage();
   }
   chatHistory.forEach(({ sender, content }) => {
-    addMessageToChat(sender, content, true); // Skip saving when loading
+    addMessageToChat(sender, content, true); 
   });
 }
 
@@ -1170,10 +1151,8 @@ function loadChatHistory() {
       speechSynthesis.speak(utterance);
     }
 
-    // Ensure voices are loaded before trying to find a female voice
     if (speechSynthesis.onvoiceschanged !== undefined) {
       speechSynthesis.onvoiceschanged = () => {
-        // Preload voices
         speechSynthesis.getVoices();
       };
     }
