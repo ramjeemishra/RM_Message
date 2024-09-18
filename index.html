@@ -426,14 +426,27 @@
 
       <div id="tab1" class="chat-window">
         <div class="chats" id="messages">
-          <p
-            style="border: 1px solid black; color: white; padding: 5px 5px 5px 5px; border-radius: 9px; text-align: center;">
-            Your chats can be seen by all the user</p>
-
-          <div class="imagePreview"><div id="imagePreview"></div><button id="sendimg" style="display: none;">Send</button></div>
-          
-
-        </div>
+          <p style="border: 1px solid black; color: white; padding: 5px; border-radius: 9px; text-align: center;">
+              Your chats can be seen by all the users
+          </p>
+      
+          <div class="imagePreview">
+              <div id="imagePreview"></div>
+              <button id="sendimg" style="display: none;">Send</button>
+          </div>
+      
+          <div class="reaction-popup" id="reaction-popup" style="display: none;">
+              <div class="reactions-container">
+                  <span class="reaction">😀</span>
+                  <span class="reaction">❤️</span>
+                  <span class="reaction">😂</span>
+                  <span class="reaction">👍</span>
+                  <span class="reaction">😢</span>
+              </div>
+              <button id="copy-text-btn" style="display: none;">Copy Text</button>
+          </div>
+      </div>
+      
         <div class="containerr">
           <div id="emojiPanel" class="emoji-panel">
             <div class="emoji-container">

@@ -10,11 +10,8 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/index.html');
 });
 
-// Socket.io setup
 const io = require("socket.io")(server);
 let users = {};
-
-
 
 io.on("connection", (socket) => {
   socket.on("new-user-joined", (username) => {
@@ -30,7 +27,11 @@ io.on("connection", (socket) => {
   });
 
   socket.on('message', (data) => {
-    socket.broadcast.emit("message", { user: data.user, msg: data.msg });
+    io.emit("message", data);
+  });
+
+  socket.on('reaction', (data) => {
+    io.emit('reaction', data); // Broadcast reaction to all clients
   });
 });
 

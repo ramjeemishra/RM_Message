@@ -545,3 +545,50 @@ button.choice:hover {
   font-size: 0.8rem;
   margin-top: 2px;
 }
+
+
+.feature1:hover, .clickable-div:hover{
+  background: #ffffff45;
+  color: #000000;
+  transition: 0.3s;
+}
+
+
+
+
+
+
+
+
+
+.reaction-popup {
+  position: absolute;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 10px;
+  display: none; /* Initially hidden */
+}
+
+.reactions-container {
+  display: flex;
+  gap: 10px;
+  z-index: 6;
+}
+
+.reaction {
+  cursor: pointer;
+  font-size: 20px;
+}
+
+#copy-text-btn {
+  margin-top: 10px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+.reactions{
+  position: absolute;
+  margin-top: -6px;
+  margin-left: -15px;
+  z-index: 6;
+}
