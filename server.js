@@ -1,40 +1,49 @@
 const http = require("http");
 const express = require("express");
+const socketIo = require("socket.io");
+
 const app = express();
 const server = http.createServer(app);
+const io = socketIo(server);
 const port = process.env.PORT || 4000;
 
-app.use(express.static(__dirname + '/public'));
+// Serve static files from the "public" directory
+app.use(express.static('public'));
 
+// Serve the main HTML file
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/index.html');
+    res.sendFile(__dirname + '/index.html');
 });
 
-const io = require("socket.io")(server);
 let users = {};
 
 io.on("connection", (socket) => {
-  socket.on("new-user-joined", (username) => {
-    users[socket.id] = username;
-    socket.broadcast.emit('user-connected', username);
-    io.emit("user-list", users);
-  });
+    console.log('A user connected:', socket.id);
 
-  socket.on("disconnect", () => {
-    socket.broadcast.emit('user-disconnected', users[socket.id]);
-    delete users[socket.id];
-    io.emit("user-list", users);
-  });
+    // Handle new user joining
+    socket.on("new-user-joined", (username) => {
+        users[socket.id] = username;
+        socket.broadcast.emit('user-connected', username);
+        io.emit("user-list", Object.values(users));
+    });
 
-  socket.on('message', (data) => {
-    io.emit("message", data);
-  });
+    // Handle user disconnect
+    socket.on("disconnect", () => {
+        const username = users[socket.id];
+        if (username) {
+            socket.broadcast.emit('user-disconnected', username);
+            delete users[socket.id];
+            io.emit("user-list", Object.values(users));
+        }
+    });
 
-  socket.on('reaction', (data) => {
-    io.emit('reaction', data); // Broadcast reaction to all clients
-  });
+    // Handle incoming messages
+    socket.on('message', (data) => {
+        socket.broadcast.emit("message", data);
+    });
 });
 
+// Start the server
 server.listen(port, () => {
-  console.log("Server started at " + port);
+    console.log("Server started on port " + port);
 });

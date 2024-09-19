@@ -6,21 +6,6 @@ const users_list = document.querySelector(".users-list");
 const users_count = document.querySelector(".users-count");
 const msg_send = document.querySelector("#user-send");
 const user_msg = document.querySelector("#user-msg");
-const reactionPopup = document.getElementById('reaction-popup');
-const copyTextBtn = document.getElementById('copy-text-btn');
-const contextMenu = document.getElementById('context-menu');
-const copyTextBtnContext = document.getElementById('copy-text-btn-context');
-let activeMessage = null;
-
-// URL of the sound file to be played on message receipt
-const notificationSound = new Audio('/audio/livechat-129007.mp3');
-
-user_msg.addEventListener('keydown', function(event) {
-    if (event.key === 'Enter') {
-        event.preventDefault();
-        msg_send.click();
-    }
-});
 
 // Load stored messages from Local Storage
 function loadStoredMessages() {
@@ -31,75 +16,87 @@ function loadStoredMessages() {
 }
 
 // Get stored username from Local Storage
-username = localStorage.getItem('username');
-
-if (!username) {
-    do {
-        username = prompt("Enter your name: ");
-    } while (!username);
-    localStorage.setItem('username', username);
-}
+username = localStorage.getItem('username') || prompt("Enter your name: ");
+localStorage.setItem('username', username);
 
 // Load stored messages when the page loads
 loadStoredMessages();
 
+// Notify server of new user
 socket.emit("new-user-joined", username);
 
-socket.on('user-connected', (socket_name) => {
-    userJoinLeft(socket_name, 'joined');
-});
-
+// Speak function
 function speak(text) {
     const utterance = new SpeechSynthesisUtterance(text);
     speechSynthesis.speak(utterance);
 }
 
+// User join/leave function
 function userJoinLeft(name, status) {
     const div = document.createElement("div");
     div.classList.add('user-join');
     const content = `<p><b>${name}</b> ${status} the chat</p>`;
     div.innerHTML = content;
     chats.appendChild(div);
+    
     if (status === 'joined' || status === 'left') {
-        speak(`${name} ${status} the chat`);
+        speak(`${name} has ${status} the chat.`);
     }
     updateUsersList();
 }
 
+// Update users list
 function updateUsersList() {
     // Implement users list update logic if needed
 }
 
+// Handle user connection
+socket.on('user-connected', (socket_name) => {
+    userJoinLeft(socket_name, 'joined');
+});
+
+// Handle user disconnection
 socket.on('user-disconnected', (user) => {
     userJoinLeft(user, 'left');
 });
 
+// Update users list
 socket.on('user-list', (users) => {
     users_list.innerHTML = "";
-    const users_arr = Object.values(users);
-    users_arr.forEach(user => {
+    Object.values(users).forEach(user => {
         const p = document.createElement('p');
         p.innerText = user;
         users_list.appendChild(p);
     });
-    users_count.innerHTML = users_arr.length;
+    users_count.innerHTML = Object.values(users).length;
 });
 
-msg_send.addEventListener('click', () => {
-    const data = {
-        user: username,
-        msg: user_msg.value
-    };
-    if (user_msg.value !== '') {
-        appendMessage(data, 'outgoing');
-        socket.emit('message', data);
-        user_msg.value = '';
-        const storedMessages = JSON.parse(localStorage.getItem('chatMessages')) || [];
-        storedMessages.push(data);
-        localStorage.setItem('chatMessages', JSON.stringify(storedMessages));
+// Send message when Enter key is pressed
+user_msg.addEventListener('keydown', function(event) {
+    if (event.key === 'Enter' && user_msg.value.trim() !== '') {
+        event.preventDefault(); // Prevent the default action (like form submission)
+        msg_send.click(); // Trigger the send button click
     }
 });
 
+// Send message when button is clicked
+msg_send.addEventListener('click', () => {
+    const messageContent = user_msg.value;
+    if (messageContent) {
+        const data = { user: username, msg: messageContent };
+        appendMessage(data, 'outgoing');
+        socket.emit('message', data);
+
+        // Store message in localStorage
+        const storedMessages = JSON.parse(localStorage.getItem('chatMessages')) || [];
+        storedMessages.push(data);
+        localStorage.setItem('chatMessages', JSON.stringify(storedMessages));
+
+        user_msg.value = ''; // Clear input field
+    }
+});
+
+// Append message to chat
 function appendMessage(data, status) {
     const div = document.createElement('div');
     div.classList.add('message', status);
@@ -115,143 +112,33 @@ function appendMessage(data, status) {
     userElement.textContent = data.user;
     div.appendChild(userElement);
 
-    const reactionsContainer = document.createElement('div');
-    reactionsContainer.classList.add('reactions');
-    div.appendChild(reactionsContainer);
-
     chats.appendChild(div);
-    chats.scrollTop = chats.scrollHeight;
-    addLongPressListener(div);
+    chats.scrollTop = chats.scrollHeight; // Scroll to the bottom
 
-    if (status === 'incoming' && notificationSound) {
+    // Play sound for incoming messages
+    if (status === 'incoming') {
+        const notificationSound = new Audio('/audio/livechat-129007.mp3');
         notificationSound.play().catch(error => {
             console.error("Notification sound play failed:", error);
         });
     }
 }
 
-function addLongPressListener(message) {
-    let holdTimeout = null;
-
-    message.addEventListener('mousedown', function() {
-        holdTimeout = setTimeout(() => showReactionPopup(message), 1000); 
-    });
-
-    message.addEventListener('mouseup', function() {
-        clearTimeout(holdTimeout); 
-    });
-
-    message.addEventListener('mouseleave', function() {
-        clearTimeout(holdTimeout); 
-    });
-
-    message.addEventListener('touchstart', function() {
-        holdTimeout = setTimeout(() => showReactionPopup(message), 1000); 
-    });
-
-    message.addEventListener('touchend', function() {
-        clearTimeout(holdTimeout); 
-    });
-
-    message.addEventListener('touchmove', function() {
-        clearTimeout(holdTimeout); 
-    });
-
-    message.addEventListener('contextmenu', function(e) {
-        e.preventDefault(); 
-        showContextMenu(message, e); 
-    });
-}
-
-function showReactionPopup(message) {
-    const rect = message.getBoundingClientRect();
-    const popupLeft = rect.left + window.scrollX + 10;
-    const popupTop = rect.bottom + window.scrollY + 5;
-    
-    reactionPopup.style.left = `${popupLeft}px`;
-    reactionPopup.style.top = `${popupTop}px`;
-    reactionPopup.style.display = 'block';
-
-    copyTextBtn.style.display = 'block';
-    activeMessage = message;
-}
-
-function showContextMenu(message, event) {
-    const rect = message.getBoundingClientRect();
-    const popupLeft = rect.left + window.scrollX;
-    const popupTop = rect.bottom + window.scrollY;
-    
-    contextMenu.style.left = `${popupLeft}px`;
-    contextMenu.style.top = `${popupTop}px`;
-    contextMenu.style.display = 'block';
-
-    activeMessage = message;
-    event.preventDefault();
-}
-
-function hidePopups() {
-    reactionPopup.style.display = 'none';
-    contextMenu.style.display = 'none';
-    copyTextBtn.style.display = 'none';
-}
-
-document.querySelectorAll('.reaction-popup .reaction').forEach(emoji => {
-    emoji.addEventListener('click', function() {
-        const reaction = emoji.textContent;
-        if (activeMessage) {
-            const reactionsContainer = activeMessage.querySelector('.reactions');
-            reactionsContainer.innerHTML = `<span class="reaction">${reaction}</span>`;
-            socket.emit('reaction', {
-                messageId: activeMessage.dataset.messageId,
-                reaction: reaction
-            });
-        }
-        hidePopups();
-    });
-});
-
-copyTextBtn.addEventListener('click', function() {
-    if (activeMessage) {
-        const text = activeMessage.querySelector('p').textContent;
-        navigator.clipboard.writeText(text).then(() => {});
-    }
-    hidePopups();
-});
-
-copyTextBtnContext.addEventListener('click', function() {
-    if (activeMessage) {
-        const text = activeMessage.querySelector('p').textContent;
-        navigator.clipboard.writeText(text).then(() => {});
-    }
-    hidePopups();
-});
-
+// Listen for incoming messages from server
 socket.on('message', (data) => {
     appendMessage(data, 'incoming');
-    const storedMessages = JSON.parse(localStorage.getItem('chatMessages')) || [];
-    storedMessages.push(data);
-    localStorage.setItem('chatMessages', JSON.stringify(storedMessages));
 });
 
-socket.on('reaction', (data) => {
-    const message = document.querySelector(`.message[data-message-id="${data.messageId}"]`);
-    if (message) {
-        const reactionsContainer = message.querySelector('.reactions');
-        reactionsContainer.innerHTML = `<span class="reaction">${data.reaction}</span>`;
-    }
-});
-
+// Clear chat button functionality
 const clearChatBtn = document.getElementById('clearChatBtn');
 clearChatBtn.addEventListener('click', () => {
     chats.innerHTML = '';
     localStorage.removeItem('chatMessages');
 });
 
-function playSound() {
-    notificationSound.play().catch(error => {
-        console.error("Notification sound play failed:", error);
-    });
-}
+// Load messages from localStorage on page load
+loadStoredMessages();
+
 
 
 
