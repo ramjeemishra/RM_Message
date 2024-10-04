@@ -64,14 +64,16 @@
       display: block;
     }
 
-    .me{
+    .me {
       background-color: rgba(0, 0, 0, 0.6);
       color: aliceblue;
     }
-    .nexus{
-      background-color:rgb(245 245 245 / 36%);
+
+    .nexus {
+      background-color: rgb(245 245 245 / 36%);
       color: #000000;
     }
+
     .sender.me {
       background: -webkit-linear-gradient(#eee, #10e7ff);
       -webkit-background-clip: text;
@@ -283,23 +285,25 @@
     }
 
     .emoji-panel {
-    display: none;
-    margin-top: -196px;
-    width: 500px;
-    position: fixed;
-    padding: 10px;
-    background-color: #302e2ec7;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    max-height: 200px;
-    overflow-y: auto;
+      display: none;
+      margin-top: -196px;
+      width: 500px;
+      position: fixed;
+      padding: 10px;
+      background-color: #302e2ec7;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      max-height: 200px;
+      overflow-y: auto;
     }
-@media (max-width:1000px) {
-  .emoji-panel{
-    width:55dvw;
-  }
-}
+
+    @media (max-width:1000px) {
+      .emoji-panel {
+        width: 55dvw;
+      }
+    }
+
     .emoji-container {
       display: flex;
       flex-wrap: wrap;
@@ -325,9 +329,6 @@
       width: 100%;
       border-radius: 50px 0 0 50px;
     }
-
-
-    
   </style>
 </head>
 
@@ -339,55 +340,67 @@
     <div class="updates" id="updates">
       <button id="udatescloseButton">Home</button>
       <div class="updates-content">
-          <h2 class="updates-heading">🚀 Latest Features and Updates</h2>
-          <ul class="updates-list">
-              <li>
-                  <strong>AI Assistant Nexus:</strong> Chat with super-fast responses, offering seamless interactions.
+        <h2 class="updates-heading">🚀 Latest Features and Updates</h2>
+        <ul class="updates-list">
+          <li>
+            <strong>AI Assistant Nexus:</strong> Chat with super-fast responses, offering seamless interactions.
+          </li>
+          <li class="generate-images-li">
+            <strong>Generate Images:</strong> Use the keyword "<code>generate</code>" to create stunning images
+            instantly in chat.
+            <span class="demo-example">Example: <code>'generate a cute puppy'</code></span>
+            <!-- Example text displayed -->
+            <strong>Play game</strong> now you can play <code>rock, paper, scissors</code>.
+            <span class="demo-example">Example: <code>'let's play game'</code></span>
+          </li>
+          <li>
+            <strong>Enhanced Chat Features:</strong> Experience a powerful AI chatbot for efficient and smooth
+            conversations.
+          </li>
+          <li class="improved-update">
+            <strong>Improved Features & User Experience:</strong>
+            <p>This update, we have improved more features and enhanced the user experience to make it easier to use.
+            </p>
+            <ul class="feature-list">
+              <li>📊 <strong>Improved Performance:</strong> Faster load times and optimized AI processing for quicker
+                responses.</li>
+              <li>🔧 <strong>Enhanced Customization:</strong> More options to personalize your chat interface.</li>
+              <li><strong>History:</strong> Now whatever you create is stored.</li>
+            </ul>
+            <ul class="improvement-list">
+              <li>✨ <strong>Simplified Interface:</strong> Cleaner, more intuitive layout for a better user experience.
               </li>
-              <li class="generate-images-li">
-                <strong>Generate Images:</strong> Use the keyword "<code>generate</code>" to create stunning images instantly in chat.
-                <span class="demo-example">Example: <code>'generate a cute puppy'</code></span> <!-- Example text displayed -->
-                <strong>Play game</strong> now you can play <code>rock, paper, scissors</code>.
-                <span class="demo-example">Example: <code>'let's play game'</code></span>
-            </li>
-              <li>
-                  <strong>Enhanced Chat Features:</strong> Experience a powerful AI chatbot for efficient and smooth conversations.
-              </li>
-              <li class="improved-update">
-                <strong>Improved Features & User Experience:</strong> 
-                <p>This update, we have improved more features and enhanced the user experience to make it easier to use.</p>
-                <ul class="feature-list">
-                    <li>📊 <strong>Improved Performance:</strong> Faster load times and optimized AI processing for quicker responses.</li>
-                    <li>🔧 <strong>Enhanced Customization:</strong> More options to personalize your chat interface.</li>
-                    <li><strong>History:</strong> Now whatever you create is stored.</li>
-                </ul>
-                <ul class="improvement-list">
-                    <li>✨ <strong>Simplified Interface:</strong> Cleaner, more intuitive layout for a better user experience.</li>
-                    <li>🚀 <strong>Better Navigation:</strong> Easier access to key features with fewer clicks.</li>
-                </ul>
-            </li>
-          </ul>
+              <li>🚀 <strong>Better Navigation:</strong> Easier access to key features with fewer clicks.</li>
+            </ul>
+          </li>
+        </ul>
       </div>
-  </div>
-
-</div>
+    </div>
+    <div id="shortcut_overlay" style="display: none;">
+      <button id="close-shortcut-button">🔙🐧</button>
+      <div id="shortcut-container">
+        <li>shortcut key for 'ai' <strong>alt + a</strong></li>
+        <li>shortcut key for 'normal chat' <strong>alt + c</strong></li>
+      </div>
+    </div>
+    </div>
     <div id="settingsOverlay">
       <div id="settingsContent">
-          <div id="appVersion">
-              Version 1.0.1
-          </div>
-          <button id="closeButton" style="display: block;">X</button>
-          <button id="muteButton"style="display: block;">Mute</button>
-          <button id="show-history-button">Show History</button>
-          <div id="history-overlay" style="display: none;">
-              <button id="close-history-button">Close</button>
-              <div id="history-container"></div>
-          </div>
-          
-          <button id="newupdate"style="display: block;">what's new this update</button>
+        <div id="appVersion">
+          Version 1.0.1
+        </div>
+        <button id="closeButton" style="display: block;">X</button>
+        <button id="muteButton" style="display: block;">Mute</button>
+        <button id="shortcut" style="display: block;" accesskey="p">shortcut's</button>
+        <button id="show-history-button">Show History</button>
+        <div id="history-overlay" style="display: none;">
+          <button id="close-history-button">Close</button>
+          <div id="history-container"></div>
+        </div>
+        <button id="newupdate" style="display: block;">what's new this update</button>
 
       </div>
-  </div>
+    </div>
 
     <header>
       <div class="title">
@@ -398,7 +411,8 @@
             class="text">MORE</span><span>HIDE</span></button></div>
 
       <div class="buttons" style="display: none;" id="additionalButtons">
-        <button id="button2" accesskey="a" class="rotate-button" style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">TS
+        <button id="button2" accesskey="a" class="rotate-button"
+          style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">TS
           AI</button>
         <button id="button1" accesskey="c">CHAT box</button>
         <button type="button" id="clearChatBtn" class="Clear">Clear chat</button>
@@ -427,26 +441,26 @@
       <div id="tab1" class="chat-window">
         <div class="chats" id="messages">
           <p style="border: 1px solid black; color: white; padding: 5px; border-radius: 9px; text-align: center;">
-              Your chats can be seen by all the users
+            Your chats can be seen by all the users
           </p>
-      
+
           <div class="imagePreview">
-              <div id="imagePreview"></div>
-              <button id="sendimg" style="display: none;">Send</button>
+            <div id="imagePreview"></div>
+            <button id="sendimg" style="display: none;">Send</button>
           </div>
-      
+
           <div class="reaction-popup" id="reaction-popup" style="display: none;">
-              <div class="reactions-container">
-                  <span class="reaction">😀</span>
-                  <span class="reaction">❤️</span>
-                  <span class="reaction">😂</span>
-                  <span class="reaction">👍</span>
-                  <span class="reaction">😢</span>
-              </div>
-              <button id="copy-text-btn" style="display: none;">Copy Text</button>
+            <div class="reactions-container">
+              <span class="reaction">😀</span>
+              <span class="reaction">❤️</span>
+              <span class="reaction">😂</span>
+              <span class="reaction">👍</span>
+              <span class="reaction">😢</span>
+            </div>
+            <button id="copy-text-btn" style="display: none;">Copy Text</button>
           </div>
-      </div>
-      
+        </div>
+
         <div class="containerr">
           <div id="emojiPanel" class="emoji-panel">
             <div class="emoji-container">
@@ -598,9 +612,13 @@
             style="flex: 1; padding: 20px; height: 75dvh; overflow-y: scroll; border-bottom: 1px solid #ddd; display: flex; flex-direction: column; gap: 10px;">
             <!-- <img id="image" width="50%" height="50%" src="" alt=""> -->
             <div class="feature" style="display: flex; flex-grow: initial; gap: 5dvw; height: fit-content;">
-            <div class="feature1" style="color: #ffffff; width: fit-content; font-size: 24px; font-weight: bold; text-align: center; padding: 10px; border: 1px solid #ddd; border-radius: 5px; box-shadow: 0 0 10px rgba(0,0,0,0.1); cursor: pointer;" onclick="createAndShowGameDiv()">Let's play game</div>
-            <div class="clickable-div" style="color: #ffffff; width: fit-content; font-size: 24px; font-weight: bold; text-align: center; padding: 10px; border: 1px solid #ddd; border-radius: 5px; box-shadow: 0 0 10px rgba(0,0,0,0.1); cursor: pointer;">Generate images</div>
-          </div>
+              <div class="feature1"
+                style="color: #ffffff; width: fit-content; font-size: 24px; font-weight: bold; text-align: center; padding: 10px; border: 1px solid #ddd; border-radius: 5px; box-shadow: 0 0 10px rgba(0,0,0,0.1); cursor: pointer;"
+                onclick="createAndShowGameDiv()">Let's play game</div>
+              <div class="clickable-div"
+                style="color: #ffffff; width: fit-content; font-size: 24px; font-weight: bold; text-align: center; padding: 10px; border: 1px solid #ddd; border-radius: 5px; box-shadow: 0 0 10px rgba(0,0,0,0.1); cursor: pointer;">
+                Generate images</div>
+            </div>
 
 
           </div>
@@ -623,67 +641,74 @@
 
 
   <script>
-    document.querySelector('.clickable-div').addEventListener('click', function() {
-        document.getElementById('user-input').value = 'generate';
+    document.querySelector('.clickable-div').addEventListener('click', function () {
+      document.getElementById('user-input').value = 'generate';
     });
 
+    //shortcut code below
+    document.getElementById('shortcut').addEventListener('click', function () {
+      document.getElementById('shortcut_overlay').style.display = 'block';
+    });
 
+    document.getElementById('close-shortcut-button').addEventListener('click', function () {
+      document.getElementById('shortcut_overlay').style.display = 'none';
+    });
 
 
 
     // setting buttion
-document.getElementById('settingsButton').addEventListener('click', function() {
-    document.getElementById('settingsOverlay').style.display = 'flex';
-});
+    document.getElementById('settingsButton').addEventListener('click', function () {
+      document.getElementById('settingsOverlay').style.display = 'flex';
+    });
 
-document.getElementById('closeButton').addEventListener('click', function() {
-    document.getElementById('settingsOverlay').style.display = 'none';
-});
-
-
-
-//updates
-document.getElementById('newupdate').addEventListener('click', function() {
-    document.getElementById('updates').style.display = 'flex';
-    document.getElementById('settingsOverlay').style.display = 'none';
-});
-
-document.getElementById('udatescloseButton').addEventListener('click', function() {
-    document.getElementById('updates').style.display = 'none';
-});
+    document.getElementById('closeButton').addEventListener('click', function () {
+      document.getElementById('settingsOverlay').style.display = 'none';
+    });
 
 
+
+    //updates
+    document.getElementById('newupdate').addEventListener('click', function () {
+      document.getElementById('updates').style.display = 'flex';
+      document.getElementById('settingsOverlay').style.display = 'none';
+    });
+
+    document.getElementById('udatescloseButton').addEventListener('click', function () {
+      document.getElementById('updates').style.display = 'none';
+    });
 
 
 
 
-document.addEventListener("DOMContentLoaded", function () {
-    const muteButton = document.getElementById("muteButton");
-    const audioElements = document.querySelectorAll("audio, video");
-    let isMuted = localStorage.getItem("isMuted") === "true";
-    
-    function updateMuteState(mute) {
+
+
+    document.addEventListener("DOMContentLoaded", function () {
+      const muteButton = document.getElementById("muteButton");
+      const audioElements = document.querySelectorAll("audio, video");
+      let isMuted = localStorage.getItem("isMuted") === "true";
+
+      function updateMuteState(mute) {
         audioElements.forEach(element => element.muted = mute);
 
         if (window.speechSynthesis) {
-            if (mute) {
-                window.speechSynthesis.cancel(); 
-            } else {
-            }
+          if (mute) {
+            window.speechSynthesis.cancel();
+          } else {
+          }
         }
 
         muteButton.textContent = mute ? "Unmute" : "Mute";
         muteButton.classList.toggle("muted", mute);
-    }
+      }
 
-    updateMuteState(isMuted);
+      updateMuteState(isMuted);
 
-    muteButton.addEventListener("click", function () {
+      muteButton.addEventListener("click", function () {
         isMuted = !isMuted;
         updateMuteState(isMuted);
         localStorage.setItem("isMuted", isMuted);
+      });
     });
-});
 
 
 
@@ -820,114 +845,114 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     document.addEventListener("DOMContentLoaded", () => {
-  loadChatHistory();
-  document.getElementById('user-input').addEventListener('keypress', function (event) {
-    if (event.key === 'Enter') {
-      event.preventDefault();
-      document.getElementById('send-buttonn').click();
+      loadChatHistory();
+      document.getElementById('user-input').addEventListener('keypress', function (event) {
+        if (event.key === 'Enter') {
+          event.preventDefault();
+          document.getElementById('send-buttonn').click();
+        }
+      });
+      document.querySelector('.clearbtn').addEventListener('click', () => {
+        clearChat();
+      });
+    });
+
+    function clearChat() {
+      localStorage.removeItem('chatHistory');
+      const chatBox = document.getElementById('chat-box');
+      chatBox.innerHTML = '';
     }
-  });
-  document.querySelector('.clearbtn').addEventListener('click', () => {
-    clearChat();
-  });
-});
 
-function clearChat() {
-  localStorage.removeItem('chatHistory');
-  const chatBox = document.getElementById('chat-box');
-  chatBox.innerHTML = '';
-}
-
-const API_KEY = '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';
-const API_URL = 'https://api.groq.com/openai/v1/chat/completions';
-const systemMessage = {
-  role: 'system',
-  content: `'Your name is Nexus. If anyone asks who built you or who your owner is, tell them it is Ramjee. Otherwise, if user asks anything about love or emotion then respond'
+    const API_KEY = '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';
+    const API_URL = 'https://api.groq.com/openai/v1/chat/completions';
+    const systemMessage = {
+      role: 'system',
+      content: `'Your name is Nexus. If anyone asks who built you or who your owner is, tell them it is Ramjee. Otherwise, if user asks anything about love or emotion then respond'
   you have image generating capability but you can generate image when "generate" key word is used,
   when user use "generate" key word just say something like generating your thoughts, it can take few seconds to create
   `
-};
+    };
 
-async function sendMessage() {
-  const userInput = document.getElementById('user-input').value.trim().toLowerCase();
-  if (!userInput) return;
+    async function sendMessage() {
+      const userInput = document.getElementById('user-input').value.trim().toLowerCase();
+      if (!userInput) return;
 
-  addMessageToChat('ME', userInput);
+      addMessageToChat('ME', userInput);
 
-  // Check for game command
-  if (userInput === "let's play game") {
-    createAndShowGameDiv();
-    document.getElementById('user-input').value = '';
-    return;
-  }
+      // Check for game command
+      if (userInput === "let's play game") {
+        createAndShowGameDiv();
+        document.getElementById('user-input').value = '';
+        return;
+      }
 
-  try {
-    const response = await fetch(API_URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${API_KEY}`
-      },
-      body: JSON.stringify({
-        messages: [systemMessage, { role: 'user', content: userInput }],
-        model: 'llama3-8b-8192'
-      })
-    });
+      try {
+        const response = await fetch(API_URL, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${API_KEY}`
+          },
+          body: JSON.stringify({
+            messages: [systemMessage, { role: 'user', content: userInput }],
+            model: 'llama3-8b-8192'
+          })
+        });
 
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        const botMessage = data.choices[0].message.content;
+        addMessageToChat('Nexus', botMessage);
+        speakMessage(botMessage); // Speak the AI response
+      } catch (error) {
+        console.error('Error fetching response:', error);
+        addMessageToChat('Nexus', `Error: { update API } Unable to fetch response (${error.message})`);
+      }
+
+      document.getElementById('user-input').value = '';
     }
 
-    const data = await response.json();
-    const botMessage = data.choices[0].message.content;
-    addMessageToChat('Nexus', botMessage);
-    speakMessage(botMessage); // Speak the AI response
-  } catch (error) {
-    console.error('Error fetching response:', error);
-    addMessageToChat('Nexus', `Error: { update API } Unable to fetch response (${error.message})`);
-  }
+    let round = 0;
+    let scores = {
+      wins: 0,
+      ties: 0,
+      losses: 0
+    };
 
-  document.getElementById('user-input').value = '';
-}
+    function createAndShowGameDiv() {
+      const chatBox = document.getElementById('chat-box');
+      const gameDiv = document.createElement('div');
 
-let round = 0;
-let scores = {
-  wins: 0,
-  ties: 0,
-  losses: 0
-};
+      // Set up the new game div
+      gameDiv.style.width = '150px';
+      gameDiv.style.height = '200px';
+      gameDiv.style.padding = '10px';
+      gameDiv.style.border = '2px solid #444';
+      gameDiv.style.borderRadius = '10px';
+      gameDiv.style.backgroundColor = '#222';
+      gameDiv.style.position = 'relative';
+      gameDiv.classList.add('game-container');
 
-function createAndShowGameDiv() {
-  const chatBox = document.getElementById('chat-box');
-  const gameDiv = document.createElement('div');
+      // Add the close button
+      const closeButton = document.createElement('button');
+      closeButton.textContent = '✖️';
+      closeButton.style.position = 'absolute';
+      closeButton.style.top = '5px';
+      closeButton.style.right = '5px';
+      closeButton.style.border = 'none';
+      closeButton.style.background = 'none';
+      closeButton.style.color = 'white';
+      closeButton.style.fontSize = '16px';
+      closeButton.style.cursor = 'pointer';
+      closeButton.addEventListener('click', () => {
+        gameDiv.remove();
+      });
 
-  // Set up the new game div
-  gameDiv.style.width = '150px';
-  gameDiv.style.height = '200px'; 
-  gameDiv.style.padding = '10px';
-  gameDiv.style.border = '2px solid #444';
-  gameDiv.style.borderRadius = '10px';
-  gameDiv.style.backgroundColor = '#222';
-  gameDiv.style.position = 'relative'; 
-  gameDiv.classList.add('game-container');
-
-  // Add the close button
-  const closeButton = document.createElement('button');
-  closeButton.textContent = '✖️'; 
-  closeButton.style.position = 'absolute';
-  closeButton.style.top = '5px';
-  closeButton.style.right = '5px';
-  closeButton.style.border = 'none';
-  closeButton.style.background = 'none';
-  closeButton.style.color = 'white';
-  closeButton.style.fontSize = '16px';
-  closeButton.style.cursor = 'pointer';
-  closeButton.addEventListener('click', () => {
-    gameDiv.remove(); 
-  });
-
-  // Add the game content
-  gameDiv.innerHTML = `
+      // Add the game content
+      gameDiv.innerHTML = `
     <h1 style="font-size: 16px; text-align: center; color: white;">Select one</h1>
     <div id="choices" style="text-align: center;">
       <button class="choice" data-choice="rock" style="font-size: 16px;">🪨</button>
@@ -945,205 +970,205 @@ function createAndShowGameDiv() {
     </div>
   `;
 
-  gameDiv.appendChild(closeButton);
-  chatBox.appendChild(gameDiv);
-  chatBox.scrollTop = chatBox.scrollHeight;
+      gameDiv.appendChild(closeButton);
+      chatBox.appendChild(gameDiv);
+      chatBox.scrollTop = chatBox.scrollHeight;
 
 
-  gameDiv.querySelectorAll('.choice').forEach(button => {
-    button.addEventListener('click', function() {
-      playGame(this.dataset.choice);
-    });
-  });
-}
-
-
-function playGame(userChoice) {
-  if (round >= 3) {
-    endGame();
-    return;
-  }
-
-  const choices = ['rock', 'paper', 'scissors'];
-  const aiChoice = choices[Math.floor(Math.random() * choices.length)];
-  const result = getGameResult(userChoice, aiChoice);
-
-
-  const thinkingMessages = [
-    "Let me think...",
-    "Hmm, let me consider my options...",
-    "Give me a moment to decide...",
-    "Let me ponder for a second...",
-    "Thinking... please wait..."
-  ];
-
-
-  const thinkingMessage = thinkingMessages[Math.floor(Math.random() * thinkingMessages.length)];
-
-
-  addMessageToChat('Nexus', thinkingMessage);
-
-
-  speakMessage(thinkingMessage);
-
-  setTimeout(() => {
-    document.getElementById('ai-choice').textContent = getEmoji(aiChoice);
-    document.getElementById('game-result').textContent = result;
-
-    if (result.includes('win')) {
-      scores.wins++;
-    } else if (result.includes('tie')) {
-      scores.ties++;
-    } else {
-      scores.losses++;
-    }
-
-
-    document.getElementById('wins').textContent = scores.wins;
-    document.getElementById('ties').textContent = scores.ties;
-    document.getElementById('losses').textContent = scores.losses;
-
-    const aiMessage = `I chose ${aiChoice}. ${result}`;
-    addMessageToChat('Nexus', aiMessage);
-    speakMessage(aiMessage);
-
-    round++;
-  }, 4000);
-}
-
-function endGame() {
-  addMessageToChat('Nexus', `Game over! You won ${scores.wins} times, had ${scores.ties} ties, and lost ${scores.losses} times.`);
-  askForReplay();
-}
-
-function getGameResult(userChoice, aiChoice) {
-  if (userChoice === aiChoice) {
-    return 'It\'s a tie! 💀';
-  }
-  if (
-    (userChoice === 'rock' && aiChoice === 'scissors') ||
-    (userChoice === 'paper' && aiChoice === 'rock') ||
-    (userChoice === 'scissors' && aiChoice === 'paper')
-  ) {
-    return 'You win! 🥲';
-  }
-  return 'I won! 😁';
-}
-
-function getEmoji(choice) {
-  switch (choice) {
-    case 'rock':
-      return '🪨';
-    case 'paper':
-      return '📄';
-    case 'scissors':
-      return '✂️';
-  }
-}
-
-function speakMessage(message) {
-  const utterance = new SpeechSynthesisUtterance(message);
-  utterance.voice = speechSynthesis.getVoices().find(voice => voice.name === 'Google UK English Female') || speechSynthesis.getVoices()[0];
-  speechSynthesis.speak(utterance);
-}
-
-function askForReplay() {
-  addMessageToChat('Nexus', 'Do you want to play again? (yes/no)');
-
-  document.getElementById('user-input').addEventListener('keypress', function (event) {
-    if (event.key === 'Enter') {
-      const userInput = document.getElementById('user-input').value.toLowerCase();
-      if (userInput === 'yes') {
-        resetGame();
-      } else if (userInput === 'no') {
-        addMessageToChat('Nexus', 'Thanks for playing!');
-      }
-      document.getElementById('user-input').value = '';
-    }
-  });
-}
-
-function resetGame() {
-  round = 0;
-  scores = {
-    wins: 0,
-    ties: 0,
-    losses: 0
-  };
-  document.getElementById('wins').textContent = scores.wins;
-  document.getElementById('ties').textContent = scores.ties;
-  document.getElementById('losses').textContent = scores.losses;
-  addMessageToChat('Nexus', 'Starting a new game...');
-}
-
-
-function speakMessage(message) {
-  const utterance = new SpeechSynthesisUtterance(message);
-  utterance.voice = speechSynthesis.getVoices().find(voice => voice.name === 'Google UK English Female') || speechSynthesis.getVoices()[0];
-  speechSynthesis.speak(utterance);
-}
-
-
-
-
-
-function addMessageToChat(sender, message, skipSave = false) {
-  const chatBox = document.getElementById('chat-box');
-  const messageDiv = document.createElement('div');
-
-  //  a span for the sender
-  const senderSpan = document.createElement('span');
-  senderSpan.textContent = `${sender}: `;
-  senderSpan.classList.add('sender', sender.toLowerCase());
-
-  const messageSpan = document.createElement('span');
-  messageSpan.textContent = message;
-  messageSpan.classList.add('message-content');
-  messageSpan.style.whiteSpace = "pre-line";
-
-  messageDiv.appendChild(senderSpan);
-  messageDiv.appendChild(messageSpan);
-  messageDiv.style.borderRadius = "15px";
-  messageDiv.style.padding = "6px";
-  messageDiv.style.fontWeight = "bold"
-  messageDiv.style.width = "fit-content";
-  messageDiv.style.border = "1px solid #ddd";
-  messageDiv.style.marginBottom = "10px";
-  messageDiv.classList.add('message', sender.toLowerCase());
-
-  chatBox.appendChild(messageDiv);
-  chatBox.scrollTop = chatBox.scrollHeight;
-
-  if (!skipSave) {
-    saveChatHistory();
-  }
-}
-
-function saveChatHistory() {
-  const chatBox = document.getElementById('chat-box');
-  const messages = chatBox.querySelectorAll('.message');
-
-  const chatHistory = [];
-  messages.forEach(message => {
-    if (!message.classList.contains('system')) {
-      chatHistory.push({
-        sender: message.classList.contains('me') ? 'ME' : 'Nexus',
-        content: message.textContent.replace(/^ME: /, '').replace(/^Nexus: /, '')
+      gameDiv.querySelectorAll('.choice').forEach(button => {
+        button.addEventListener('click', function () {
+          playGame(this.dataset.choice);
+        });
       });
     }
-  });
-  localStorage.setItem('chatHistory', JSON.stringify(chatHistory));
-}
 
-function loadChatHistory() {
-  const chatHistory = JSON.parse(localStorage.getItem('chatHistory')) || [];
-  if (chatHistory.length === 0) {
-    addSystemMessage();
-  }
-  chatHistory.forEach(({ sender, content }) => {
-    addMessageToChat(sender, content, true); 
-  });
-}
+
+    function playGame(userChoice) {
+      if (round >= 3) {
+        endGame();
+        return;
+      }
+
+      const choices = ['rock', 'paper', 'scissors'];
+      const aiChoice = choices[Math.floor(Math.random() * choices.length)];
+      const result = getGameResult(userChoice, aiChoice);
+
+
+      const thinkingMessages = [
+        "Let me think...",
+        "Hmm, let me consider my options...",
+        "Give me a moment to decide...",
+        "Let me ponder for a second...",
+        "Thinking... please wait..."
+      ];
+
+
+      const thinkingMessage = thinkingMessages[Math.floor(Math.random() * thinkingMessages.length)];
+
+
+      addMessageToChat('Nexus', thinkingMessage);
+
+
+      speakMessage(thinkingMessage);
+
+      setTimeout(() => {
+        document.getElementById('ai-choice').textContent = getEmoji(aiChoice);
+        document.getElementById('game-result').textContent = result;
+
+        if (result.includes('win')) {
+          scores.wins++;
+        } else if (result.includes('tie')) {
+          scores.ties++;
+        } else {
+          scores.losses++;
+        }
+
+
+        document.getElementById('wins').textContent = scores.wins;
+        document.getElementById('ties').textContent = scores.ties;
+        document.getElementById('losses').textContent = scores.losses;
+
+        const aiMessage = `I chose ${aiChoice}. ${result}`;
+        addMessageToChat('Nexus', aiMessage);
+        speakMessage(aiMessage);
+
+        round++;
+      }, 4000);
+    }
+
+    function endGame() {
+      addMessageToChat('Nexus', `Game over! You won ${scores.wins} times, had ${scores.ties} ties, and lost ${scores.losses} times.`);
+      askForReplay();
+    }
+
+    function getGameResult(userChoice, aiChoice) {
+      if (userChoice === aiChoice) {
+        return 'It\'s a tie! 💀';
+      }
+      if (
+        (userChoice === 'rock' && aiChoice === 'scissors') ||
+        (userChoice === 'paper' && aiChoice === 'rock') ||
+        (userChoice === 'scissors' && aiChoice === 'paper')
+      ) {
+        return 'You win! 🥲';
+      }
+      return 'I won! 😁';
+    }
+
+    function getEmoji(choice) {
+      switch (choice) {
+        case 'rock':
+          return '🪨';
+        case 'paper':
+          return '📄';
+        case 'scissors':
+          return '✂️';
+      }
+    }
+
+    function speakMessage(message) {
+      const utterance = new SpeechSynthesisUtterance(message);
+      utterance.voice = speechSynthesis.getVoices().find(voice => voice.name === 'Google UK English Female') || speechSynthesis.getVoices()[0];
+      speechSynthesis.speak(utterance);
+    }
+
+    function askForReplay() {
+      addMessageToChat('Nexus', 'Do you want to play again? (yes/no)');
+
+      document.getElementById('user-input').addEventListener('keypress', function (event) {
+        if (event.key === 'Enter') {
+          const userInput = document.getElementById('user-input').value.toLowerCase();
+          if (userInput === 'yes') {
+            resetGame();
+          } else if (userInput === 'no') {
+            addMessageToChat('Nexus', 'Thanks for playing!');
+          }
+          document.getElementById('user-input').value = '';
+        }
+      });
+    }
+
+    function resetGame() {
+      round = 0;
+      scores = {
+        wins: 0,
+        ties: 0,
+        losses: 0
+      };
+      document.getElementById('wins').textContent = scores.wins;
+      document.getElementById('ties').textContent = scores.ties;
+      document.getElementById('losses').textContent = scores.losses;
+      addMessageToChat('Nexus', 'Starting a new game...');
+    }
+
+
+    function speakMessage(message) {
+      const utterance = new SpeechSynthesisUtterance(message);
+      utterance.voice = speechSynthesis.getVoices().find(voice => voice.name === 'Google UK English Female') || speechSynthesis.getVoices()[0];
+      speechSynthesis.speak(utterance);
+    }
+
+
+
+
+
+    function addMessageToChat(sender, message, skipSave = false) {
+      const chatBox = document.getElementById('chat-box');
+      const messageDiv = document.createElement('div');
+
+      //  a span for the sender
+      const senderSpan = document.createElement('span');
+      senderSpan.textContent = `${sender}: `;
+      senderSpan.classList.add('sender', sender.toLowerCase());
+
+      const messageSpan = document.createElement('span');
+      messageSpan.textContent = message;
+      messageSpan.classList.add('message-content');
+      messageSpan.style.whiteSpace = "pre-line";
+
+      messageDiv.appendChild(senderSpan);
+      messageDiv.appendChild(messageSpan);
+      messageDiv.style.borderRadius = "15px";
+      messageDiv.style.padding = "6px";
+      messageDiv.style.fontWeight = "bold"
+      messageDiv.style.width = "fit-content";
+      messageDiv.style.border = "1px solid #ddd";
+      messageDiv.style.marginBottom = "10px";
+      messageDiv.classList.add('message', sender.toLowerCase());
+
+      chatBox.appendChild(messageDiv);
+      chatBox.scrollTop = chatBox.scrollHeight;
+
+      if (!skipSave) {
+        saveChatHistory();
+      }
+    }
+
+    function saveChatHistory() {
+      const chatBox = document.getElementById('chat-box');
+      const messages = chatBox.querySelectorAll('.message');
+
+      const chatHistory = [];
+      messages.forEach(message => {
+        if (!message.classList.contains('system')) {
+          chatHistory.push({
+            sender: message.classList.contains('me') ? 'ME' : 'Nexus',
+            content: message.textContent.replace(/^ME: /, '').replace(/^Nexus: /, '')
+          });
+        }
+      });
+      localStorage.setItem('chatHistory', JSON.stringify(chatHistory));
+    }
+
+    function loadChatHistory() {
+      const chatHistory = JSON.parse(localStorage.getItem('chatHistory')) || [];
+      if (chatHistory.length === 0) {
+        addSystemMessage();
+      }
+      chatHistory.forEach(({ sender, content }) => {
+        addMessageToChat(sender, content, true);
+      });
+    }
 
 
     // function addSystemMessage() {
