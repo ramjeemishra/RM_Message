@@ -872,7 +872,7 @@
   when user use "generate" key word just say something like generating your thoughts, it can take few seconds to create
   `
     };
-
+    let conversationHistory = [systemMessage];
     async function sendMessage() {
       const userInput = document.getElementById('user-input').value.trim().toLowerCase();
       if (!userInput) return;
@@ -886,6 +886,7 @@
         return;
       }
 
+      conversationHistory.push({ role: 'user', content: userInput });
       try {
         const response = await fetch(API_URL, {
           method: 'POST',
@@ -894,7 +895,7 @@
             'Authorization': `Bearer ${API_KEY}`
           },
           body: JSON.stringify({
-            messages: [systemMessage, { role: 'user', content: userInput }],
+            messages: conversationHistory,
             model: 'llama-3.1-70b-versatile'
           })
         });
